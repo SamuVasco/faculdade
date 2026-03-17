@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Contato </title>
+		<meta charset='UTF-8'>
+	</head>
+<body>
+	<form method='post' action='universidade.py'>
+	<fieldset><legend>Cadastro Aluno</legend>
+	<p>
+        <label>
+            Nome:<input type='text' name='nome' placeholder= 'nome completo' maxlength=30 required size=40></input>
+        </label>
+    </p>
+	<p>
+        <label>
+            Endereço:<input type='text' name='endereco' size=37></input>
+        </label>
+    </p>
+	<p>
+        <label>Data_Nasc:<input type='date' name='data_nasc' required></label></input>
+    </p>
+	<p>
+        <label>E_mail:<input type='email' name='email' required size=38></label></input>
+    </p>
+	<p>
+        <label>Senha:<input type='password' name='senha' required placeholder='6 digitos' size=39 maxlength=6></label></input>
+    </p>
+	<fieldset><legend>Exemplo de Seleção Simples e multipla</legend>
+	<p>
+        <label>Sexo:<input type='radio' name='sexo'>Feminino</label></input>
+		<label><input type='radio' name='sexo'>Masculino</label></input>
+		<label><input type='radio' name='sexo'>Outros</label></input>
+    </p>
+	<h4>Area de Interesse:</h4>
+	<p>
+        <label><input type='checkbox' name='area' checked>Tecnologia</label></input>
+	    <label><input type='checkbox' name='area'>Esporte</label></input>
+	    <label><input type='checkbox' name='area'>Lazer</label></input>
+	    <label><input type='checkbox' name='area'>Entretenimento</label></input>
+    </p>
+	</fieldset>
+	<p>Estado:
+	<select name='estado'>
+		<optgroup label='Sudeste'>
+			<option value="AC">Acre</option>
+			<option value="AL">Alagoas</option>
+			<option value="AP">Amapá</option>
+			<option value="AM">Amazonas</option>
+		</optgroup>
+		<optgroup label='Nordeste'>
+			<option value="BA">Bahia</option>
+			<option value="CE">Ceará</option>
+		</optgroup>
+		<option value="DF">Distrito Federal</option>
+		<option value="ES">Espírito Santo</option>
+		<option value="GO">Goiás</option>
+		<option value="MA">Maranhão</option>
+		<option value="MT">Mato Grosso</option>
+		<option value="MS">Mato Grosso do Sul</option>
+		<option value="MG">Minas Gerais</option>
+		<option value="PA">Pará</option>
+		<option value="PB">Paraíba</option>
+		<option value="PR">Paraná</option>
+		<option value="PE">Pernambuco</option>
+		<option value="PI">Piauí</option>
+		<option value="RJ">Rio de Janeiro</option>
+		<option value="RN">Rio Grande do Norte</option>
+		<option value="RS">Rio Grande do Sul</option>
+		<option value="RO">Rondônia</option>
+		<option value="RR">Roraima</option>
+		<option value="SC">Santa Catarina</option>
+		<option value="SP">São Paulo</option>
+		<option value="SE">Sergipe</option>
+		<option value="TO">Tocantins</option>	
+</select>
+	<p>Deixe o seu comentário</p>
+		<textarea maxlength=200 cols=50 rows=10></textarea>
+	<p><input type='submit'></input>
+	   <input type='reset' value='Limpar'></input>
+	   <input type='button' value='Salvar'></input></p>
+	<p>Upload de arquivos:<input type='file' name='arquivo'></input></p>
+	<p>Hora:<input type='time' name='hora'></input></p>
+	<p>Data e hora:<input type='datetime-local' name='local'></input></p>
+	<p>Selecione a semana:<input type='week' name='semana'></input></p>
+	<p>Selecione a cor de preferência:<input type='color' name='cor'></input></p>
+	<p>Imagem<input type='image' src='cachorro2.jpg' width=30 name='imagem'></input></p>
+	<p>Pouco satisfeito<input type='range' min='0' max='10' name='satisfacao'>Muito satisfeito</input></p>
+	
+	</fieldset>	
+	</form>
+	<a href='index3.html'>Voltar</a>
+</body>
+</html>
