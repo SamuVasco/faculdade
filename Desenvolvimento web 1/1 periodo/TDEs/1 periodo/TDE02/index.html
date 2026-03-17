@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDE02</title>
+    <style>
+        form {
+            border: 1px solid red;
+        }
+
+        p {
+            border: 1px solid blue;
+        }
+
+        label {
+            border: 1px solid yellow;
+        }
+
+        input {
+            background-color: rgba(0, 128, 0, 0.5);
+            border: 1px solid green;
+        }
+
+        table {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+        Questão 01
+    <form action="">
+        <p>
+            <label for="nome">
+                Nome 
+            </label>
+            <input type="text" name="nome" id="nome">
+        </p>
+        <p>
+            <label for="">
+                Nome completo 
+            </label>
+            <input type="text">
+        </p>
+        <p>
+            <label>
+                CPF 
+            </label>
+            <input type="number">
+        </p>
+        <p>
+            <label>
+                E-mail 
+            </label>
+            <input type="text">
+        </p>
+        <p>
+            <label>
+                WebSite 
+            </label>
+            <input type="text">
+        </p>
+        <p>
+            <label>
+                Endereço 
+            </label>
+            <input type="text">
+        </p>
+        <p class="paragrafo">
+            <label>
+                Bairro 
+            </label>
+            <input type="text">
+            <label>
+                Cidade 
+            </label>
+            <input type="text">
+        </p>
+        <p class="paragrafo">
+            <label>
+                Cep 
+            </label>
+            <input type="number">
+            <label for="">
+                UF
+                <select name="estado" id="UF">
+                    <optgroup label="Norte">
+                        <option value="AC">AC - Acre</option>
+                        <option value="AP">AP - Amapá</option>
+                        <option value="AM">AM - Amazonas</option>
+                        <option value="PA">PA - Pará</option>
+                        <option value="RO">RO - Rondônia</option>
+                        <option value="RR">RR - Roraima</option>
+                        <option value="TO">TO - Tocantins </option>
+                    </optgroup>
+                    <optgroup label="Nordeste">
+                        <option value="AL">AL - Alagoas</option>
+                        <option value="BA">BA - Bahia</option>
+                        <option value="CE">CE - Ceará</option>
+                        <option value="MA">MA - Maranhão</option>
+                        <option value="PB">PB - Paraíba</option>
+                        <option value="PE">PE - Pernambuco</option>
+                        <option value="PI">PI - Piauí</option>
+                        <option value="RN">RN - Rio Grande do Norte</option>
+                        <option value="SE">SE - Sergipe </option>
+                    </optgroup>
+                    <optgroup label="Centro-Oeste">
+                        <option value="DF">DF - Distrito Federal</option>
+                        <option value="GO">GO - Goiás</option>
+                        <option value="MT">MT - Mato Grosso</option>
+                        <option value="MS">MS - Mato Grosso do Sul </option>
+                    </optgroup>
+                    <optgroup label="Sudeste">
+                        <option value="ES">ES - Espírito Santo</option>
+                        <option value="MG">MG - Minas Gerais</option>
+                        <option value="RJ">RJ - Rio de Janeiro</option>
+                        <option value="SP">SP - São Paulo </option>
+                    </optgroup>
+                    <optgroup label="Sul">
+                        <option value="PR">PR - Paraná</option>
+                        <option value="RS">RS - Rio Grande do Sul</option>
+                        <option value="SC">SC - Santa Catarina </option>
+                    </optgroup>
+                </select> 
+            </label>
+            <input type="text">
+        </p>
+        <p class="paragrafo">
+            <label>
+                Telefone 
+            </label>
+            <input type="number">
+            <label for="">
+                Fax 
+            </label>
+            <input type="text">
+        </p>
+        <p class="paragrafo">
+            <label>
+                Data Nascimento 
+            </label>
+            <input type="date">
+            <label for="">
+                Sexo 
+            </label>
+            <input type="radio"> <input type="radio">
+        </p>
+        <p class="paragrafo">
+            <label>
+                Celular 
+            </label>
+            <input type="number">
+            <label for="">
+                Est. civil 
+                <select  name="est_civil" id="est_civil">
+                    <option value="solteiro">Solteiro</option>
+                    <option value="casado">Casado</option>
+                    <option value="viuvo">Viúvo</option>
+                    <option value="divorciado">Divorciado</option>
+                </select>
+            </label>
+        </p>
+        <p class="paragrafo">
+            <label>
+                Login 
+            </label>
+            <input type="text">
+            <label>
+                Senha 
+            </label>
+            <input type="password">
+        </p>
+        <p>Deseja receber informações sobre os seguintes assuntos abaixo:</p>
+        <p>    
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Tecnologia
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Esportes
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Automóveis
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Culinária
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Política
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Policial
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Tempo
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Cultura
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Economia
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Jogos
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Educação
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Viagem
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Empregos
+            </label>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse"> Moda e Estilo
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" name="interesse" id="interesse" required> Li as regras de cadastro e autorizo a criação do usuário
+            </label>
+        </p>
+         <input type="submit" name="enviar" id="enviar">
+         <input type="reset" name="reset" id="reset">
+    </form>
+    
+        Questão 04
+    
+    <table>
+            <tr>
+                <th colspan="4">Configuração dos Apartamentos</th>
+            </tr>
+            <tr>
+                <th colspan="2">Todos</th>
+                <th>Standard</th>
+                <th>Luxo</th>
+            </tr>
+            <tr>
+                <td colspan="2">Ar-condicionado<br>Frigobar</td>
+                <td>17m²<br>TV 14"</td>
+                <td>21m²<br>TV 21"</td>
+            </tr>
+            <tr>
+                <th rowspan="2">Diária por<br>Temporada</th>
+                <th>Alta</th>
+                <td>R$ 200,00</td>
+                <td>R$ 250,00</td>
+            </tr>
+            <tr>
+                <th>Baixa</th>
+                <td>R$ 120,00</td>
+                <td>R$ 180,00</td>
+            </tr>
+    </table>
+</body>
+</html>

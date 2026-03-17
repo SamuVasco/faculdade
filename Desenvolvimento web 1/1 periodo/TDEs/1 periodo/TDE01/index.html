@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        h2 {
+            font-weight: normal;
+        }
+        
+        div {
+            display: flex;
+        }
+
+        div.divisao > p {
+            margin: 0;
+        }
+         
+        pre.questionario {
+            font-size: 20px;
+            background-color: rgba(128, 128, 128, 0.205);
+            padding: 0px;
+            margin: 0px;
+            display: inline-block;
+            width: 100%;
+            text-align: left;
+        }
+
+        table {
+            font-family: Arial;
+            border: 2px solid black;
+            border-spacing: 2px;
+            border-collapse: separate;
+        }
+
+        th, td, tr {
+            border: 1px solid black;
+            padding: 2px 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quebras</h1>
+    <p>Este texto aparece antes da imagem a qual vai ser alinhada à esquerda</p>
+    <div class="divisao">
+    <img style="display: inline;" src="https://images3.memedroid.com/images/UPLOADED235/661ff73f00df0.webp" width="200px" alt="gato fazendo joinha">
+    <p class="paragrafo">
+        Esta frase está na mesma linha da imagem pelo que fica à sua direita
+    </p>
+    </div>
+    <p>O parâmetro de limpeza faz ultrapassar a imagem.</p>
+<pre>
+Texto Pré-formatado
+Este bocado    de texto têm
+muitos espaços
+
+e mudanças de linha.
+
+        C         I
+         U         N
+          R         T 
+           S         E
+            O         R
+                       N
+              D         E
+               E         T
+</pre>
+    <p>Logo HTML5</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/960px-HTML5_logo_and_wordmark.svg.png?_=20170517184425" width="200px" alt="html5 logo">
+    <p>Logo CSS3</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/960px-CSS3_logo_and_wordmark.svg.png" width="200px" alt="css3 logo">
+    <p>Logo Javascript</p>
+    <img src="https://static.vecteezy.com/system/resources/previews/027/127/463/non_2x/javascript-logo-javascript-icon-transparent-free-png.png" width="200px" alt="javascript logo">
+
+<table>
+        <tr>
+            <th>Tabela</th>
+            <th>Hora de saída</th>
+            <th>Hora de chegada</th>
+            <th>Classe do ônibus</th>
+            <th>Tarifa normal</th>
+            <th>Frequência</th>
+        </tr>
+        <tr>
+            <th>Cidade A</th>
+            <td>06:00</td>
+            <td>14:00</td>
+            <td>Convencional</td>
+            <td>20,00</td>
+            <td>Diária</td>
+        </tr>
+        <tr>
+            <th>Cidade B</th>
+            <td>12:00</td>
+            <td>15:00</td>
+            <td>Convencional</td>
+            <td>10,00</td>
+            <td>Domingos</td>
+        </tr>
+        <tr>
+            <th>Cidade C</th>
+            <td>14:00</td>
+            <td>17:00</td>
+            <td>Leito</td>
+            <td>15,00</td>
+            <td>Diária</td>
+        </tr>
+        <tr>
+            <th>Cidade D</th>
+            <td>16:00</td>
+            <td>17:00</td>
+            <td>Convencional</td>
+            <td>10,00</td>
+            <td>Diária</td>
+        </tr>
+        <tr>
+            <th>Cidade E</th>
+            <td>18:30</td>
+            <td>20:00</td>
+            <td>Executivo</td>
+            <td>30,00</td>
+            <td>Domingos</td>
+        </tr>
+        <tr>
+            <th>Cidade F</th>
+            <td>20:00</td>
+            <td>23:00</td>
+            <td>Convencional</td>
+            <td>80,00</td>
+            <td>Sábados</td>
+        </tr>
+        <tr>
+            <th>Cidade G</th>
+            <td>21:00</td>
+            <td>23:30</td>
+            <td>Convencional</td>
+            <td>26,00</td>
+            <td>Diária</td>
+        </tr>
+        <tr>
+            <th>Cidade H</th>
+            <td>22:00</td>
+            <td>23:00</td>
+            <td>Executivo</td>
+            <td>16,00</td>
+            <td>Diária</td>
+        </tr>
+        <tr>
+            <td colspan="6">Horários de ônibus</td>
+        </tr>
+</table>
+    <h1>Lista não ordenada</h1>
+        <h2>Tecnologias que deseja aprender:</h2>
+        <ul type="disc">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+            <li>Python</li>
+        </ul>
+        <h1>Lista Ordenada</h1>
+        <h2>Passos ara aprender programação:</h2>
+        <ol type="1">
+            <li>Estudar lógica</li>
+            <li>Aprender HTML</li>
+            <li>Aprender CSS</li>
+            <li>Aprender Javascript</li>
+        </ol>
+    <h1>Extra</h1>
+    <h2>Exemplo de lista dentro de lista</h2>
+    <h3>Lista Ordenada</h3>
+    <ol>
+        <li>Um item</li>
+        <li>Outro item</li>
+        <ul>
+            <li>Exemplo</li>
+            <li>Outro exemplo</li>
+        </ul>
+        <li>Mais um item</li>
+    </ol>
+    <h3>Lista não ordenada</h3>
+    <ul type="square">
+        <li>Um item</li>
+        <ol type="I">
+            <li>Exemplo</li>
+            <li>Exemplo</li>
+            <li>Exemplo</li>
+        </ol>
+        <li>Outro item</li>
+        <li>Mais um item</li>
+    </ul>
+    <h1>Questionário</h1>
+    <pre class="questionario">
+        5. HTML é uma linguagem utilizada principalmente para:
+        Reposta: B) Estruturar páginas da web
+
+        6. Qual é a tag correta para criar um título principal em HTML?
+        Resposta: B) h1
+
+        7. Qual tag é utilizada para criar um parágrafo?
+        Resposta: B) p
+
+        8.Qual tag é utilizada para inserir uma imagem?
+        Resposta: A) img
+
+        9. Qual atributo da tag img descreve a imagem para leitores
+        de tela?
+        Resposta: C) alt
+
+        10. Qual tag é usada para criar uma lista não ordenada?
+        Resposta: A) ul
+
+        11. Qual tag define um item dentro de uma lista?
+        Resposta: C) li
+
+        12. Qual tag é utilizada para criar uma tabela em HTML?
+        Resposta: B) table
+
+        13.Qual elemento representa uma linha de uma tabela?
+        Resposta: A) tr
+
+        14.Qual é a declaração correta que define um documento HTML5?
+        Resposta: B) DOCTYPE html
+
+        15. Qual elemento define o título exibido na aba do navegador?
+        Resposta: B) title
+
+        16. Qual tag cria o maior nível de título?
+        Resposta: A) h6
+
+        17. O HTML é classificado como:
+        Resposta: B) Linguagem de marcação
+
+        18. Qual elemento agrupa imagem e legenda?
+        Resposta: B) figure
+
+        19. Qual tag define legenda de imagem?
+        Resposta: B) figcaption
+
+        20. Qual atributo define largura de imagem?
+        Resposta: B) width
+    </pre>
+</body>
+</html>
