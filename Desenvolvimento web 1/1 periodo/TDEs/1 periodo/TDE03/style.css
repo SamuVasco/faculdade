@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body {
+    background-color: rgb(190, 190, 190);
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('https://images3.memedroid.com/images/UPLOADED235/661ff73f00df0.webp');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 40% 100%;
+}
+
+#titulo-principal {
+    font-size: 30px;
+}
+
+p {
+    background-color: rgba(3, 3, 126, 0.644);
+    color: white;
+    border: 1px solid black;
+    text-align: center;
+    margin: 40px;
+}
+
+.destaque {
+    font-weight: bold;
+    color: red;
+}
+
+.perfil {
+    text-align: left;
+}
+
+img {
+    border: 5px dashed rgba(255, 255, 0, 0.664);
+}
+
+pre {
+    margin: 50px;
+    border-radius: 10px;
+    font: normal normal 20px Arial;
+    background-color: white;
+    color: black;
+}
