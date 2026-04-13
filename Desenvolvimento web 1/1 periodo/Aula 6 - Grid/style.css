@@ -1,0 +1,106 @@
+.container{
+	display:grid;
+	grid-template-columns:auto auto auto;
+	grid-template-rows:auto auto auto;
+	grid-column-gap:30px; /*adiciona espaço entre as colunas*/
+	grid-row-gap:10px; /*adiciona espaço entre as linhas*/
+	grid-gap:10px 30px; /*forma resumida para definir o espaço*/
+	gap:10px 30px;
+}
+
+.item{
+	border:1px solid #000;
+	text-align:center;
+	color:#FFF;
+	background:#FF00FF
+}
+
+.it1{
+	grid-column-start:1;
+	grid-column-end:4; /*o valor final não é inclusivo é o valor - 1*/
+	grid-column:1/4; /*forma atualizada e resumida*/
+	grid-row:1/4;
+}
+
+.it2{
+	grid-column:1/span 3;
+	grid-row:1/span 3;
+}
+
+.area1{
+	grid-area:3/2/5/4;
+}
+
+
+/*---------------------------------------------------------*/
+/*
+.header{
+	grid-area:header1
+}
+
+.principal{
+	grid-area:principal1
+}
+
+.lateral{
+	grid-area:lateral1
+}
+
+.rodape{
+	grid-area:rodape1
+}
+
+.container{
+	display:grid;
+	grid-template-columns:auto auto auto auto;
+	grid-template-rows:50px  510px 50px;
+	grid-template-areas:'header1 header1 header1 header1'
+						'principal1 principal1 . lateral1'
+						'rodape1 rodape1 rodape1 rodape1'
+}
+
+.item{
+	background:#AA00BB;
+	color:#FFF;
+	border:1px dashed #000;
+	text-align:center
+}
+*/
+/*-----------------------------------------------------*/
+
+/*
+.header{
+	grid-area:header;
+	background:lightblue
+}
+
+.sidebar{
+	grid-area:sidebar;
+	background:lightcoral
+}
+
+.content{
+	grid-area:content;
+	background:lightgreen
+}
+
+.footer{
+	grid-area:footer;
+	background:yellow
+}
+
+.container{
+	display:grid;
+	grid-template-areas:'header header header'
+						'sidebar content content'
+						'footer footer footer';
+	grid-gap:10px;
+	padding:10px
+}
+
+.item{
+	color:#000;
+	border:1px solid #000;
+	text-align:center
+}		
+*/

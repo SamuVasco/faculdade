@@ -1,0 +1,209 @@
+/* LAYOUT 1*/
+/*
+#container {
+    display: grid;
+    background-color: aliceblue;
+    height: 90vh;
+
+   grid-template-columns: auto auto auto auto;
+   grid-template-rows: auto auto;
+
+   grid-template-areas: "vermelho vermelho azul azul"
+                        "amarelo roxo azul azul"
+   ;
+
+}
+    
+.caixa {
+    border: 2px solid black;
+}
+
+.v {
+    grid-area: vermelho;
+    background: red;
+    
+}
+
+.am {
+    grid-area: amarelo;
+    background: yellow;
+   
+}
+
+.r {
+    grid-area: roxo;
+    background: purple;
+    
+}
+
+.az {
+    grid-area: azul;
+    background: blue;
+
+}
+
+footer {
+    height: 5vh;
+    background: orange;
+    color: white;
+    border: 1px solid black;
+}
+
+*/
+
+/* LAYOUT 2 */
+
+/*
+#container {
+    display: grid;
+    height: 95vh;
+}
+
+.caixa {
+    border: 1px solid black;
+}
+
+.v {
+    grid-area: vermelho;
+    background: red;
+
+    grid-column: 1 / 5;
+    grid-row: 1 / 11;
+}
+
+.am {
+    grid-area: amarelo;
+    background: yellow;
+
+    grid-column: 1 / 2;
+    grid-row: 11 / 21;
+}
+
+.r {
+    grid-area: roxo;
+    background: purple;
+
+    grid-column: 2 / 3;
+    grid-row: 11 / 21;
+}
+
+.vi {
+    grid-area: vinho;
+    background: rgb(139, 28, 28);
+
+    grid-column: 3 / 4;
+    grid-row: 11 / 21;
+}
+
+.ci {
+    grid-area: cinza;
+    background: gray;
+
+    grid-column: 4 / 5;
+    grid-row: 11 / 21;
+}
+
+.az {
+    grid-area: azul;
+    background: blue;
+
+    grid-column: 5 / 9;
+    grid-row: 1 / 21;
+}
+
+.footer {
+    grid-area: footer;
+    background: rgb(255, 179, 37);
+
+    grid-column: 1 / 9;
+    grid-row: 21 / 22;
+}
+*/
+
+/* LAYOUT 3 */
+
+#container {
+    display: grid;
+
+    grid-template-columns: auto auto auto auto;
+    
+    height: 95vh;
+}
+
+.caixa {
+    border: 1px solid black;
+}
+
+.esquerda {
+    grid-area: esquerda;
+    background: rgb(0, 255, 0);
+
+    margin: 0px;
+    padding: 15px;
+
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+.meio {
+    grid-area: meio;
+    background: red;
+
+    margin: 0px;
+    padding: 15px 40px 0px 40px;
+    
+
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+}
+
+.direita {
+    grid-area: direita;
+    background: rgb(0, 255, 0);
+
+    margin: 0px;
+    padding: 15px;
+
+    grid-column: 4 / 5;
+    grid-row: 1 / 3;
+}
+
+.caixinha {
+    display: flex;
+    border: 1px solid black;
+    background: blue;   
+}
+
+h1 {
+    margin: auto;
+}
+
+.A {
+    height: 200px;
+    
+    margin-bottom: 20px;
+}
+
+.B {
+    height: 400px;
+}
+
+.C {
+    height: 550px;
+}
+
+.D {
+    height: 200px;
+
+    margin-bottom: 20px;
+}
+
+.E {
+   height: 200px;
+
+    margin-bottom: 20px;
+}
+
+.F {
+    height: 400px;
+}

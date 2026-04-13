@@ -1,0 +1,109 @@
+/*form{
+	width:500px;
+	margin:auto /*centraliza o objeto na página
+}
+
+legend{
+	color:#1917FF;
+	font-size:12px;
+	font-family:Castellar Regular;
+	font-weight:bold
+}
+
+#usuario{
+	background-image:url('usuario.png');
+	background-repeat:no-repeat;
+	background-position:right top;
+	background-size:140px;
+	/*border-style:dotted;
+	border-color:blue;
+	border-width:2px;
+	border:dotted blue 2px;
+	border-radius:25px /*arredonda as extremidades da borda
+}
+
+#sexo{
+	width:300px;
+	border-color:#8A2BE2;
+	border-radius:25px
+}
+
+input:hover{
+	background-color:pink
+}*/
+/*Exemplo de DIV*/
+	
+#container{
+	width:950px;
+	margin:auto
+}
+
+#header{
+	height:25px;
+	background-color:#818E85;
+	font-family:Verdana;
+	font-size:14px;
+	text-align:center;
+	color:white;
+	font-weight:bold
+}
+
+.nav{
+	background:#333;
+	overflow:hidden /*corta o estouro e coloca invisivel o resto
+	scroll - corta o estouro e coloca uma barra de rolagem
+	auto - semelhante ao scroll mas so coloca a barra de rolagem 
+	caso seja necesário*/
+}
+
+.nav a{
+	color:#FF00FF;
+	text-decoration:none;
+	/*padding-top:14px;
+	padding-right:5px;
+	padding-left:5px;
+	padding-bottom:14px*/
+	padding:14px 5px
+}
+
+.nav a:hover{
+	background:#DDD;
+	color:black
+}
+
+#left{
+	width:200px;
+	height:255px;
+	background-image:url('dog1.jfif');
+	background-repeat:no-repeat;
+	background-position:right top;
+	background-size:30px;
+	font-family:Verdana;
+	font-size:2;
+	float:left
+}
+
+#content{
+	width:500px;
+	height:255px;
+	color:blue;
+	font-family:Verdana;
+	font-size:12px;
+	text-align:justify;
+	display:inline-block;
+	margin:60px 10px
+}
+
+#right{
+	float:right;
+	width:190px;
+	height:255px;
+	margin:10px
+}
+
+#footer{
+	text-align:center;
+	background:#818E85;
+	color:white;
+	clear:both
+}

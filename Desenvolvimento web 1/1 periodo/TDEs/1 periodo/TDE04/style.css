@@ -86,7 +86,6 @@ body {
   gap: 20px;
 }
 
-
 .container-images {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
