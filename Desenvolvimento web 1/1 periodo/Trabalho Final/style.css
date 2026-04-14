@@ -2,15 +2,23 @@
 
 /*
 cores
+
 branco: #e5e5e5
 azul: #056efd
 cinza: #151515
 preto: #0b0d0c
+
 */
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #e5e5e5;
     margin: 0px;
+
+    background-image: url('/imagens/fundo.png');
+    background-repeat: no-repeat; /* para a  imagem não repetir */
+    background-position: center; /* Centraliza a imagem*/
+    background-size: cover;/* Faz a imagem cobrir toda a área disponível */
+    min-height: 100vh; /* Garante que o corpo tenha no mínimo a altura da tela */
 }
 
 h1 {
@@ -28,6 +36,9 @@ header {
 }
 
 main{
+    width: 50%;
+    height: 100%;
+
     margin: 0px;
     background-color: #0b0d0c;
 }
