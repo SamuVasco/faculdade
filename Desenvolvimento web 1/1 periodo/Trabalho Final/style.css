@@ -32,13 +32,27 @@ h2 {
 header {
     background-color: #151515;
     margin: 0px;
-    
 }
 
 main{
     width: 50%;
     height: 100%;
+    margin: auto;
+    padding: 2em;
 
-    margin: 0px;
     background-color: #0b0d0c;
+}
+
+#ptop {
+    display: flex;
+
+    border: 1px solid red;
+}
+
+#ptop h2 {
+    
+}
+
+footer {
+    text-align: center;
 }
