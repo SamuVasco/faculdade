@@ -1,17 +1,15 @@
 @charset "UTF-8";
 
-/*
-cores
+:root {
+    --branco: #e5e5e5;
+    --preto: #0b0d0c;
+    --azul: #056efd;
+    --cinza: #151515;
+}
 
-branco: #e5e5e5
-azul: #056efd
-cinza: #151515
-preto: #0b0d0c
-
-*/
 body {
     font-family: Arial, Helvetica, sans-serif;
-    color: #e5e5e5;
+    color: var(--branco);
     margin: 0px;
 
     background-image: url('/imagens/fundo.png');
@@ -30,7 +28,7 @@ h2 {
 }
 
 header {
-    background-color: #151515;
+    background-color: var(--cinza);
     margin: 0px;
 }
 
@@ -40,7 +38,7 @@ main{
     margin: auto;
     padding: 2em;
 
-    background-color: #0b0d0c;
+    background-color: var(--preto);
 }
 
 #ptop {
