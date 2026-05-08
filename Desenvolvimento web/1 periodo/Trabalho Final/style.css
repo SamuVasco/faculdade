@@ -25,7 +25,7 @@ body {
     min-height: 100vh; /* Garante que o corpo tenha no mínimo a altura da tela */
     overflow-x: hidden;
 }
-
+/*--------------------------PÁGINA PRINCPAL----------------------------*/
 h1 {
     margin: 0px;
 }
@@ -179,9 +179,53 @@ main{
 
 .botoes a:hover {
     background-image: linear-gradient(to right, #0a64e2, #1273fa, #2571d4, #4491fc);
-    padding: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+    border-radius: 6px;
+}
+/*-------------------- SOBRE MIM ----------------------*/
+
+.secao-s {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--cinza);
+    padding: 20px 30px;
+}
+
+table {
+    background-color: #141414;
+    text-align: center;
+    border-radius: 5px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.lista {
+    margin: 0em 2em;
+}
+
+.lista ul {
+    margin: 0em 2em;
+}
+
+/*-------------------- CONTATO ----------------------*/
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    width: 100px;
+    height: 100px;
 }
 
 footer {

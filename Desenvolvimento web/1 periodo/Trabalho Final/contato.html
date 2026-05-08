@@ -17,13 +17,19 @@
     </header>
     <h1>Entre em contato</h1>
     <p>Preencha o formulário para me enviar uma mensagem ou uso os links abaixo.</p>
-    <form action="">
-        Nome
-        Email
+    <form action="bd.py" method="POST">
+        Nome:
+        <input type="text" name="nome" placeholder="Seu nome completo">
+        
+        Email:
+        <input type="email" name="email" placeholder="exemplo@gmail.com">
+
         Assunto
+        <input type="text" name="assunto" id="assunto" placeholder="Geral, Projeto, Oportunidade">
+
         Mensagem
-        <textarea name="" id=""></textarea>
-        <input type="submit" value="Enviar">
+        <textarea name="" id="" placeholder="Escreva a mensagem aqui..."></textarea>
+        <button type="submit" value="Enviar">Enviar</button>
     </form>
     <h2>Você também pode me encontrar aqui:</h2>
     <p>

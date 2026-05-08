@@ -4,13 +4,9 @@
 int main (){
 	setlocale(LC_ALL, "Portuguese");
 	
-	int i, j;
-	
-	for(i = 0; i <= 6; i++){
-		if(i % 2 == 0){
-			printf("%i ", i);
-		}
-	}
+	do {
+		printf("a");
+	}while(1);
 	
 	return 0;
 }
