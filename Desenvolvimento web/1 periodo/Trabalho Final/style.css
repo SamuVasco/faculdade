@@ -23,7 +23,7 @@ body {
     background-position: center;
     background-size: cover;/* Faz a imagem cobrir toda a área disponível */
     min-height: 100vh; /* Garante que o corpo tenha no mínimo a altura da tela */
-    overflow-x: hidden;
+     
 }
 /*--------------------------PÁGINA PRINCPAL----------------------------*/
 h1 {

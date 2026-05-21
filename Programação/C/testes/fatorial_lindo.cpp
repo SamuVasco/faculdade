@@ -4,30 +4,27 @@
 int main (){
 	setlocale(LC_ALL, "Portuguese");
 	
-	int x, fatorial, i = 1, t1, t2, t3;
+	int x, fatorial, i = 1, f = 1;
 	
 	printf("Digite um número: ");
 	scanf("%i", &x);
 	
-	t1 = x;
-	printf("Calculando %i! : %i x ", x, x);
+	printf("Calculando %i! : ", x);
 	
-	t1 = x * 1;
 		
-	for (i = x-1 ; i >= 1 ; i--){
+	for (i = x ; i > 0 ; i--){
 		
 		printf("%i", i);
-		
-		t2 = t1 * i;
-		t1 = t2;
 		
 		if(i > 1){
 			printf(" x ");
 		}else {
 			printf(" = ");
 		}
+		
+		f *= i;
 	}
-	printf("%i", t1);
+	printf("%i", f);
 	
 	
 	return 0;
