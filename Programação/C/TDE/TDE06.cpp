@@ -5,7 +5,7 @@ int main(){
 	setlocale(LC_ALL, "Portuguese");
 	
 	// Questão 1: O programa deve oferecer um menu com as opções: 1: Converter de Celsius para Fahrenheit / 2: Converter de Fahrenheit para Celsius
-	/*
+
 	float temp, c, f;
 	int o;
 	
@@ -42,7 +42,7 @@ int main(){
 	float area, lado, base, altura, raio;
 	int op;
 	
-	printf("[1] Quadrado\n");
+	printf("\n[1] Quadrado\n");
 	printf("[2] Retângulo\n");
 	printf("[3] Triângulo\n");
 	printf("[4] Círculo\n");
@@ -89,13 +89,12 @@ int main(){
 	}
 	
 	printf("\nFIM\n");
-	*/
 	
 	// Questão 3: Dois jogadores escolhem uma opção: 1: Pedra 2: Papel 3: Tesoura
 	
 	int jog1, jog2;
 	
-	printf("[1] PEDRA\n");
+	printf("\n[1] PEDRA\n");
 	printf("[2] PAPEL\n");
 	printf("[3] TESOURA\n");
 	
@@ -157,40 +156,133 @@ int main(){
 		}
 	}
 	
+	printf("\nFIM\n");
+	
+	// Questão 4: Crie um menu com as opções: 1: Ver saldo 2: Depositar 3: Sacar 4: Sair
+	
+	int opc = 0;
+	float saldo = 100, depositar, sacar;
+	
+	while(opc != 4){
+		printf("\n[1] Ver saldo\n");
+		printf("[2] Depositar\n");
+		printf("[3] Sacar\n");
+		printf("[4] Sair\n");
+		printf("Opção: ");
+		scanf("%i", &opc);
+		
+		if(opc == 4){
+			break;
+		}else{
+			switch(opc){
+				case 1:
+					printf("\nSALDO: [ R$ %.2f ]\n", saldo);
+					break;
+					
+				case 2:
+					depositar = 0;
+					printf("\nDigite o valor que quer DEPOSITAR: R$");
+					scanf("%f", &depositar);
+					
+					saldo += depositar;
+					
+					break;
+					
+				case 3:
+					sacar = 0;
+					printf("\nDigite o valor que quer SACAR: R$");
+					scanf("%f", &sacar);
+					
+					saldo -= sacar;
+					
+					break;
+				case 4:
+					break;
+			}
+			if(opc == 4){
+				break;
+			}
+		}
+	}
+	
+	printf("\nFim\n");
+	
+	
+	// Questão 5: O programa deve converter: 1: Quilômetros -> Milhas  2: Metros -> Pés  3: Quilogramas -> Libras  4: Litros -> Galões
+	
+	float valor5, con5;
+	int op5;
+	
+	printf("\nDigite um valor: ");
+	scanf("%f", &valor5);
+	
+	printf("\n 1: Quilômetros -> Milhas\n");
+	printf(" 2: Metros -> Pés\n");
+	printf(" 3: Quilogramas -> Libras\n ");
+	printf("4: Litros -> Galões \n");
+	printf("\nOpção: ");
+	scanf("%i", &op5);
+	
+	switch(op5){
+		case 1:
+			con5 = valor5 * 0.621371;
+			printf("\n%.2f Km -> %.6f mi\n", valor5, con5);
+			break;
+			
+		case 2:
+			con5 = valor5 * 3.28084;
+			printf("\n%.2f m -> %.5f pés\n", valor5, con5);
+			break;
+			
+		case 3:
+			con5 = valor5 * 2.20462;
+			printf("\n%.2f Kg -> %.5f lbs\n", valor5, con5);
+			break;
+		
+		case 4:
+			con5 = valor5 * 0.264172;
+			printf("\n%.2f l -> %.6f Galão americano\n", valor5, con5);
+			break;
+		default:
+			printf("\nOpção inválida\n");
+	}
+	
+	printf("\nFim\n");
 
-
+	
+	/*
+	Questão 6: Qual das opções abaixo descreve corretamente como a instrução switch
+	funciona na linguagem C?
+	
+	RESPOSTA: C) Compara o valor de uma variável com múltiplos casos constantes
 	
 	
+	Questão 7: Analise o seguinte código:
+		
+	int x = 2;
+	
+	switch (x) {
+		case 1:
+			printf("A");
+		case 2:
+			printf("B");
+		case 3:
+			printf("C");
+			break;
+		default:
+			printf("D");
+	}
+	
+	O que será impresso na tela?
+	
+	RESPOSTA: C) BC
 	
 	
+	Questão 8: Qual é a finalidade do default em um switch?
 	
 	
+	RESPOSTA: C) Especificar o bloco de código executado se nenhum case for
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-	
-	
-	
-	
+	*/
 	return 0;
 }
