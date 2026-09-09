@@ -1,7 +1,14 @@
 #include <stdio.h>
 
-int main(){
-    printf("teste");
+
+int main(void){
+    
+    int x = 10;
+    int *p = &x;
+    
+    printf("%i", *p);
 
     return 0;
 }
+
+

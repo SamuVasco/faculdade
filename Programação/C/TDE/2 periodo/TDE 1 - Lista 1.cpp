@@ -1,80 +1,46 @@
 #include <stdio.h> 
 
-float somar(float a, float b);
-float subtrair(float a, float b);
-float multiplicar(float a, float b);
-float dividir(float a, float b);
+//6. Pergunte ao usuário a quantidade de vitórias, empates e derrotas do time de futebol
+//dele. Através de uma função informe ao usuário o número de pontos do time dele,
+//considerando a vitória do time 3 pontos, o empate 1 ponto e a derrota não concede
+//pontos. Com os pontos, crie uma função que retorne a média de pontos por jogo do time dele.
 
-int main() {
+int calcular_pontos(int v, int e);
+float media(float pontos, float jogos);
+
+int main(){
 	
-	// 9 . 9. Faça uma calculadora que realize operações com 2 números fornecidos pelo
-   //usuário. Após obter os números, pergunte ao usuário qual a operação que ele deseja
-  //fazer. Crie uma função para cada tipo de operação. Mostre o resultado ao usuário.
-  
-	float a, b, resultado;
-	int opc = 1;
-  
-	printf("Digite A: ");
-	scanf("%f", &a);
-  
-	printf("Digite B: ");
-	scanf("%f", &b);
+	int vitorias, empates, derrotas, pontos, jogos;
+	float m;
 	
-	do {
-		printf("\n1 - Somar\n2 - Subtrair\n3 - Multiplicar\n4 - Dividir\n5 - Novos valores\n0 - Sair\n");
-		printf("Opcao: ");
-		scanf("%i", &opc);
-		
-		switch(opc){
-			case 1:
-				resultado = somar(a,b);
-				printf("\n%.1f + %.1f = %.1f\n", a,b,resultado);
-				break;
-			case 2:
-				resultado = subtrair(a,b);
-				printf("\n%.1f - %.1f = %.1f\n", a,b,resultado);
-				break;
-			case 3:
-				resultado = multiplicar(a,b);
-				printf("\n%.1f x %.1f = %.1f\n", a,b,resultado);
-				break;
-			case 4:
-				resultado = dividir(a,b);
-				printf("\n%.1f / %.1f = %.1f\n", a,b,resultado);
-				break;
-			case 5:
-				printf("\nNovo valor de A: ");
-				scanf("%f", &a);
-				
-				printf("\nNovo valor de B: ");
-				scanf("%f", &b);
-				break;
-			case 0:
-				printf("\nPROGRAMA ENCERRADO\n");
-				break;
-			default:
-				printf("\nENTRADA INVALIDA\n");
-		}
-	}while(opc != 0);
+	printf("vitorias: ");
+	scanf("%i", &vitorias);
 	
-  
-  
-	    
-    return 0;
+	printf("empates: ");
+	scanf("%i", &empates);
+	
+	pontos = calcular_pontos(vitorias, empates);
+	
+	printf("derrotas: ");
+	scanf("%i", &derrotas);
+	
+	// descobrir quantidade de jogos
+	jogos = vitorias + empates + derrotas;
+	printf("\nJogos: %i\n", jogos);
+	
+	printf("\nPontos: %i\n", pontos);
+	
+	m = media(pontos, jogos);
+	
+	printf("\nMedia de pontos por jogo: %.1f", m);
+	
+	return 0;
 }
 
-float somar(float a, float b){
-	return a + b;
+int calcular_pontos(int v, int e){
+	return (v * 3) + e;
 }
 
-float subtrair(float a, float b){
-	return a - b;
-}
-
-float multiplicar(float a, float b){
-	return a * b;
-}
-
-float dividir(float a, float b){
-	return a / b;
+float media(float pontos, float jogos){
+	return pontos / jogos;
 }
