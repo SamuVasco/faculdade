@@ -1,34 +1,41 @@
 #include <stdio.h>
 
-void multiplicar_escalar(int *v1, int *v2, int x, int n);
-
-int main(void){
-    
-	int v1[3] = {1,2,3}, v2[3], x = 1, n = 0;
+int main(){
 	
-	n = sizeof(v1) / sizeof(v1[0]); // numero de elementos dentro do v1
+	int a[2][3], b[3][4], r[2][4] = {0};
 	
-	printf("\nDigite o valor do escalar: ");
-	scanf("%i", &x);
-	
-	printf("\nVetor v1: v1[3] = {1,2,3}\n");
-	
-	printf("\nResultado\n");
-	
-	multiplicar_escalar(v1, v2, x, n);
-	
-	for(int i = 0; i < n; i++){
-		printf("%i ", *(v2 + i));
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 3; j++){
+			printf("elemento[%i][%i]: ", i, j);
+			scanf("%i", &a[i][j]);
+		}
 	}
 	
-    return 0;
-}
-
-void multiplicar_escalar(int *v1, int *v2, int x, int n){
-	
-	for(int i = 0; i < n; i++){
-		*(v2 + i) = *(v1 + i) * x;
+	printf("\n");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 4; j++){
+			printf("elemento[%i][%i]: ", i, j);
+			scanf("%i", &b[i][j]);
+		}
 	}
+	
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 4; j++){
+			for(int k = 0; k < 3; k++){
+				r[i][j] += a[i][k] * b[k][j];
+			}
+		}
+	}
+	
+	printf("\n");
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 4; j++){
+			printf("%i ", r[i][j]);
+		}
+		printf("\n");
+	}
+	
+	return 0;
 }
 
 
