@@ -3,34 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jogo de Sobrevivência</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- TIMER -->
+    <!-- ================= INTERFACE DO JOGO (HUD) ================= -->
     <div id="timer">Tempo: <span id="tempo">60</span></div>
-
-    <!-- CONTADOR DE VIDAS -->
     <div id="vidas">Vidas: <span id="qtd-vidas">10</span></div>
 
-    <!-- ITEM DE VIDA -->
-    <div class="item-vida" id="vida1"></div>
-    <div class="item-vida" id="vida2"></div>
-
-    <!-- NUVEM -->
+    <!-- ================= CENÁRIO ================= -->
     <div class="nuvem"></div>
-
-
-    <!-- PERSONAGEM -->
-    <div class="personagem"></div>
-
-    <!-- OBSTACULO -->
-     <div class="obstaculo"></div>
-    
-    <!-- SOLO DO JOGO -->
     <div class="solo"></div>
 
-    <!-- TELA DE GAME OVER (Inicialmente oculta) -->
+    <!-- ================= ENTIDADES DO JOGO ================= -->
+    <div class="item-vida" id="vida1"></div>
+    <div class="item-vida" id="vida2"></div>
+    <div class="personagem"></div>
+    <div class="obstaculo"></div>
+
+    <!-- ================= TELAS DE FIM DE JOGO ================= -->
+    
+    <!-- Tela de Derrota -->
     <div id="game-over-screen" class="game-over-screen">
         <div class="game-over-conteudo">
             <img src="imagens/gameover.png" alt="Game Over" class="game-over-img">
@@ -38,7 +31,7 @@
         </div>
     </div>
 
-    <!-- TELA DE VITÓRIA (Parabéns) -->
+    <!-- Tela de Vitória -->
     <div id="vitoria-screen" class="game-over-screen">
         <div class="game-over-conteudo">
             <img src="imagens/parabens.png" alt="Parabéns! Você sobreviveu!" class="game-over-img">
@@ -46,7 +39,7 @@
         </div>
     </div>
 
-
+    <!-- ================= SCRIPTS ================= -->
     <script src="script.js"></script>
 </body>
 </html>
