@@ -82,7 +82,7 @@ const temporizador = setInterval(() => {
 
 
 // =========================================================================
-// 4. LÓGICA DO PERSONAGEM (CONTROLES E FÍSICA)
+// 4. LÓGICA DO PERSONAGEM (CONTROLES, FÍSICA E SPRITES)
 // =========================================================================
 
 // Captura de Teclas
@@ -90,7 +90,7 @@ document.addEventListener('keydown', (event) => {
     teclasPressionadas[event.key] = true;
 
     if (event.key === 'ArrowUp' && noChao && jogoAtivo) {
-        velocidadeY = 10; // Impulso do pulo
+        velocidadeY = 12; // Impulso do pulo
         noChao = false;
     }
 });
@@ -99,26 +99,43 @@ document.addEventListener('keyup', (event) => {
     teclasPressionadas[event.key] = false;
 });
 
+// Variável para memorizar qual imagem está ativa no momento (evita reprocessamento desnecessário)
+let spriteAtual = "";
+
 // Loop de Movimentação do Personagem (~60 FPS)
 const loopPersonagem = setInterval(() => {
     if (!jogoAtivo) return;
 
     const limiteDireito = window.innerWidth - 100;
     const tempoDecorrido = 60 - tempo;
-    const velocidadePersonagem = 5 + (tempoDecorrido * 0.21);
+    const velocidadePersonagem = 4 + (tempoDecorrido * 0.06);
 
-    // Movimento Horizontal
-    if (teclasPressionadas['ArrowRight'] && posicaoX < limiteDireito) {
-        posicaoX += velocidadePersonagem;
-    }
-    if (teclasPressionadas['ArrowLeft'] && posicaoX > 0) {
-        posicaoX -= velocidadePersonagem;
+    // Variável para definir qual imagem deve aparecer neste frame
+    let novoSprite = spriteAtual;
+
+    // Movimento Horizontal e Definição da Imagem de Corrida
+    if (teclasPressionadas['ArrowRight']) {
+        if (posicaoX < limiteDireito) {
+            posicaoX += velocidadePersonagem;
+        }
+        novoSprite = "url('imagens/correndo-p-direita.png')";
+    } else if (teclasPressionadas['ArrowLeft']) {
+        if (posicaoX > 0) {
+            posicaoX -= velocidadePersonagem;
+        }
+        novoSprite = "url('imagens/correndo-p-esquerda.png')";
+    } else {
+        // Se não estiver a andar para nenhum lado, fica com a imagem padrão/parado
+        novoSprite = "url('imagens/personagem.webp')";
     }
 
-    // Aplicação da Gravidade
+    // Aplicação da Gravidade e Pulo (O pulo tem prioridade visual sobre a corrida)
     if (!noChao) {
         posicaoY += velocidadeY;    
         velocidadeY -= gravidade;   
+
+        // No ar, exibe a imagem de pulo
+        novoSprite = "url('imagens/pulando.png')";
 
         // Checagem se tocou no chão
         if (posicaoY <= alturaSolo) {
@@ -128,10 +145,16 @@ const loopPersonagem = setInterval(() => {
         }
     }
 
-    // Renderização visual
+    // Só altera a imagem no DOM se o estado mudou (otimização de desempenho)
+    if (spriteAtual !== novoSprite) {
+        spriteAtual = novoSprite;
+        personagem.style.backgroundImage = novoSprite;
+    }
+
+    // Renderização visual da posição
     personagem.style.left = `${posicaoX}px`;
     personagem.style.bottom = `${posicaoY}px`;
-}, 1000 / 60); 
+}, 1000 / 60);
 
 
 // =========================================================================

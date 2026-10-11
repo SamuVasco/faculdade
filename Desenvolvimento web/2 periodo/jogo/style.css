@@ -1,6 +1,6 @@
-/* =========================================================
+/* ===================================================
    1. BASE E CENÁRIO
-   ========================================================= */
+   ==================================================== */
 body {
     background-image: url('imagens/fundo.png');
     background-repeat: no-repeat;
@@ -26,7 +26,9 @@ body::after {
 }
 
 .solo {
-    background-color: #5e6586;
+    background: linear-gradient(to top, #D0A56E,#BA8C59, #B58753, 
+	#AA7E4B, #966F42, #715030, #66472F);
+    box-shadow: 10px 10px 30px #000000;
     width: 100%;
     height: 80px;
     position: absolute;
@@ -103,9 +105,9 @@ body::after {
     left: 0px;
     width: 25px;
     height: 25px;
-    background-color: #ff3333;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    background-color: #ff0101;
+    border-radius: 30%;
+    box-shadow: 1px 15px 20px #ff2323;
     z-index: 6;
 }
 
@@ -115,7 +117,7 @@ body::after {
     height: 25px;
     background-color: #2ece4b;
     border-radius: 80%;
-    box-shadow: 0 0 10px rgba(46, 206, 75, 0.8);
+    box-shadow: 1px 10px 30px rgba(81, 255, 58, 0.986);
     z-index: 6;
     display: none;
 }
