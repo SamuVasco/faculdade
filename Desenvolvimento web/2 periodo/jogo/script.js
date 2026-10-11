@@ -12,7 +12,7 @@ let posicaoX = 500;
 let posicaoY = 62;           
 const alturaSolo = 62;
 let velocidadeY = 0;
-const gravidade = 1.1;
+const gravidade = 1.15;
 let noChao = true;
 const teclasPressionadas = {};
 
@@ -90,7 +90,7 @@ document.addEventListener('keydown', (event) => {
     teclasPressionadas[event.key] = true;
 
     if (event.key === 'ArrowUp' && noChao && jogoAtivo) {
-        velocidadeY = 12; // Impulso do pulo
+        velocidadeY = 11; // Impulso do pulo
         noChao = false;
     }
 });
@@ -107,8 +107,10 @@ const loopPersonagem = setInterval(() => {
     if (!jogoAtivo) return;
 
     const limiteDireito = window.innerWidth - 100;
+
+    // VELOCIDADE DO PERSONAGEM
     const tempoDecorrido = 60 - tempo;
-    const velocidadePersonagem = 4 + (tempoDecorrido * 0.06);
+    const velocidadePersonagem = 4 + (tempoDecorrido * 0.28);
 
     // Variável para definir qual imagem deve aparecer neste frame
     let novoSprite = spriteAtual;
@@ -164,8 +166,9 @@ const loopPersonagem = setInterval(() => {
 const loopObstaculo = setInterval(() => {
     if (!jogoAtivo) return;
 
+    // VELOCIDADE DA OBSTÁCULO
     const tempoDecorrido = 60 - tempo;
-    const velocidadeObstaculo = 6 + (tempoDecorrido * 0.4);
+    const velocidadeObstaculo = 6 + (tempoDecorrido * 0.5);
 
     posicaoObstaculoX += velocidadeObstaculo * direcaoObstaculo;
 
