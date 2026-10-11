@@ -90,7 +90,7 @@ document.addEventListener('keydown', (event) => {
     teclasPressionadas[event.key] = true;
 
     if (event.key === 'ArrowUp' && noChao && jogoAtivo) {
-        velocidadeY = 12; // Impulso do pulo
+        velocidadeY = 10; // Impulso do pulo
         noChao = false;
     }
 });
@@ -105,7 +105,7 @@ const loopPersonagem = setInterval(() => {
 
     const limiteDireito = window.innerWidth - 100;
     const tempoDecorrido = 60 - tempo;
-    const velocidadePersonagem = 4 + (tempoDecorrido * 0.06);
+    const velocidadePersonagem = 5 + (tempoDecorrido * 0.21);
 
     // Movimento Horizontal
     if (teclasPressionadas['ArrowRight'] && posicaoX < limiteDireito) {
@@ -142,7 +142,7 @@ const loopObstaculo = setInterval(() => {
     if (!jogoAtivo) return;
 
     const tempoDecorrido = 60 - tempo;
-    const velocidadeObstaculo = 4 + (tempoDecorrido * 0.21);
+    const velocidadeObstaculo = 6 + (tempoDecorrido * 0.4);
 
     posicaoObstaculoX += velocidadeObstaculo * direcaoObstaculo;
 
