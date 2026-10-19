@@ -1,41 +1,44 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+char* preencherAlfabeto(int tam);
 
 int main(){
+	setlocale(LC_ALL, "Portuguese");
 	
-	int a[2][3], b[3][4], r[2][4] = {0};
+	int tam = 10;
+	char *vetor;
 	
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < 3; j++){
-			printf("elemento[%i][%i]: ", i, j);
-			scanf("%i", &a[i][j]);
-		}
+	vetor = preencherAlfabeto(tam);
+	
+	for(int i = 0; i < tam; i++){
+		printf(" %c", vetor[i]);
 	}
 	
-	printf("\n");
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 4; j++){
-			printf("elemento[%i][%i]: ", i, j);
-			scanf("%i", &b[i][j]);
-		}
-	}
-	
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < 4; j++){
-			for(int k = 0; k < 3; k++){
-				r[i][j] += a[i][k] * b[k][j];
-			}
-		}
-	}
-	
-	printf("\n");
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < 4; j++){
-			printf("%i ", r[i][j]);
-		}
-		printf("\n");
-	}
+	free(vetor);
+	vetor = NULL;
 	
 	return 0;
 }
+
+char* preencherAlfabeto(int tam){
+	
+	char *vetor = (char *) malloc(tam * sizeof(char));
+	
+	if(vetor == NULL){
+		printf("\n[ERRO] malloc falhou\n");
+		exit(1);
+	}
+	
+	for(int i = 0; i < tam; i++){
+		vetor[i] = 'a' + i;
+	}
+	
+	return vetor;
+}
+
+
+
 
 
