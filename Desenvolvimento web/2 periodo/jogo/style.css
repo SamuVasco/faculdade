@@ -1,41 +1,42 @@
-/* ===================================================
-   1. BASE E CENÁRIO
-   ==================================================== */
+/* 1. CONFIGURAÇÕES GERAIS */
+:root {
+    --gradiente-terra: linear-gradient(
+        to top,
+        #D0A56E, #BA8C59, #B58753,
+        #AA7E4B, #966F42, #715030, #66472F
+    );
+}
+
 body {
+    margin: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
     background-image: url('imagens/fundo.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;    
-    position: relative;
 }
 
-/* Película que escurece o fundo ao longo do tempo */
+/* Escurecimento gradual do cenário */
 body::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     pointer-events: none;
     z-index: 2;
     animation: escurecerFundo 60s linear forwards;
 }
 
+/* 2. CENÁRIO */
 .solo {
-    background: linear-gradient(to top, #D0A56E,#BA8C59, #B58753, 
-	#AA7E4B, #966F42, #715030, #66472F);
-    box-shadow: 10px 10px 30px #000000;
-    width: 100%;
-    height: 80px;
     position: absolute;
     bottom: 0;
     left: 0;
-    background-repeat: repeat-x;
-    background-size: contain;
+    width: 100%;
+    height: 80px;
+    background: var(--gradiente-terra);
+    box-shadow: 10px 10px 30px #000000;
     z-index: 5;
 }
 
@@ -43,56 +44,47 @@ body::after {
     position: absolute;
     top: 50px;
     right: -350px;
-    width: 500px;              
-    height: 100px;              
-    background-image: url('imagens/nuvem.png'); 
+    width: 500px;
+    height: 100px;
+    background-image: url('imagens/nuvem.png');
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 1;
     animation: moverNuvem 60s linear infinite;
 }
 
-/* =========================================================
-   2. INTERFACE (HUD - Heads Up Display)
-   ========================================================= */
-#timer {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: rgba(128, 92, 50, 0.74);
-    padding: 10px 15px;
-    border-radius: 8px;
-    z-index: 100;
-}
-
+/* 3. INTERFACE DO JOGO (HUD) */
+#timer,
 #vidas {
     position: absolute;
     top: 20px;
-    left: 20px;
+    padding: 10px 15px;
+    border-radius: 8px;
     font-family: Arial, sans-serif;
     font-size: 24px;
     font-weight: bold;
     color: #ffffff;
-    background-color: rgba(255, 43, 43, 0.856);
-    padding: 10px 15px;
-    border-radius: 8px;
     z-index: 100;
 }
 
-/* =========================================================
-   3. ENTIDADES DO JOGO
-   ========================================================= */
+#timer {
+    right: 20px;
+    background-color: rgba(128, 92, 50, 0.74);
+}
+
+#vidas {
+    left: 20px;
+    background-color: rgba(255, 43, 43, 0.856);
+}
+
+/* 4. ELEMENTOS DO JOGO */
 .personagem {
-    background-image: url('imagens/personagem.webp');
     position: absolute;
     bottom: 62px;
-    left: 500px;   
-    width: 100px;  
+    left: 500px;
+    width: 100px;
     height: 100px;
+    background-image: url('imagens/personagem.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -102,7 +94,7 @@ body::after {
 .obstaculo {
     position: absolute;
     bottom: 85px;
-    left: 0px;
+    left: 0;
     width: 25px;
     height: 25px;
     background-color: #ff0101;
@@ -112,6 +104,7 @@ body::after {
 }
 
 .item-vida {
+    display: none;
     position: absolute;
     width: 25px;
     height: 25px;
@@ -119,19 +112,13 @@ body::after {
     border-radius: 80%;
     box-shadow: 1px 10px 30px rgba(81, 255, 58, 0.986);
     z-index: 6;
-    display: none;
 }
 
-/* =========================================================
-   4. TELAS DE FIM DE JOGO E BOTÕES
-   ========================================================= */
+/* 5. TELAS DE FIM DE JOGO */
 .game-over-screen {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 1000;
     justify-content: center;
@@ -154,38 +141,35 @@ body::after {
 
 .btn-reiniciar {
     padding: 12px 28px;
-    font-size: 18px;
     font-family: Arial, sans-serif;
+    font-size: 18px;
     font-weight: bold;
     color: #ffffff;
-    background: linear-gradient(to top, #D0A56E,#BA8C59, #B58753, 
-	#AA7E4B, #966F42, #715030, #66472F);
+    background: var(--gradiente-terra);
     border: none;
     border-radius: 8px;
-    cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .btn-reiniciar:hover {
     transform: scale(1.1);
 }
 
-/* =======================================================
-   5. ANIMAÇÕES (KEYFRAMES)
-   ======================================================= */
+/* 6. ANIMAÇÕES */
 @keyframes escurecerFundo {
-    0%   { background-color: rgba(0, 0, 0, 0); }
-    50%  { background-color: rgba(0, 0, 0, 0.5); }
-    100% { background-color: rgba(0, 0, 0, 0.800); }
+    0% { background-color: rgba(0, 0, 0, 0); }
+    50% { background-color: rgba(0, 0, 0, 0.5); }
+    100% { background-color: rgba(0, 0, 0, 0.8); }
 }
 
 @keyframes moverNuvem {
-    0%   { transform: translateX(0); }
+    0% { transform: translateX(0); }
     100% { transform: translateX(calc(-100vw - 150px)); }
 }
 
 @keyframes popIn {
     from { transform: scale(0.5); opacity: 0; }
-    to   { transform: scale(1); opacity: 1; }
+    to { transform: scale(1); opacity: 1; }
 }

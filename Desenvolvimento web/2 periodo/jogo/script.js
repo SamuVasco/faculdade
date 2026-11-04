@@ -1,96 +1,97 @@
-// =========================================================================
-// 1. ESTADO GLOBAL DO JOGO E CONFIGURAÇÕES
-// =========================================================================
-let jogoAtivo = true;
-let tempo = 60;
-let vidas = 10;
-const maxVidas = 10;
-let contadorSegundosDrenagem = 0;
 
-// Configurações do Personagem
-let posicaoX = 500;          
-let posicaoY = 62;           
-const alturaSolo = 62;
-let velocidadeY = 0;
-const gravidade = 1.15;
-let noChao = true;
-const teclasPressionadas = {};
+ // 1. CONFIGURAÇÕES DO JOGO
+const DURACAO_JOGO = 60;
+const VIDAS_INICIAIS = 10;
+const INTERVALO_PERDA_VIDA = 2;
 
-// Configurações do Obstáculo
-let posicaoObstaculoX = 0;
-let direcaoObstaculo = 1;
+const POSICAO_INICIAL_X = 500;
+const ALTURA_SOLO = 62;
+const GRAVIDADE = 1.15;
+const FORCA_PULO = 11;
+const VELOCIDADE_INICIAL_PERSONAGEM = 4;
+const AUMENTO_VELOCIDADE_PERSONAGEM = 0.28;
+const VELOCIDADE_INICIAL_OBSTACULO = 6;
+const AUMENTO_VELOCIDADE_OBSTACULO = 0.5;
 
-// Configurações do Item de Vida
-let ladoAtualItem = 'esquerda'; 
-let posicaoItemX = 80;
-let posicaoItemY = 84;
-let itemAtivo = true;
+const ALTURA_MINIMA_ITEM = 84;
+const ALTURA_MAXIMA_ITEM = 190;
+const POSICAO_ESQUERDA_ITEM = 80;
+const DISTANCIA_DIREITA_ITEM = 120;
 
-// =========================================================================
-// 2. REFERÊNCIAS DOS ELEMENTOS HTML (DOM)
-// =========================================================================
+const SPRITES = {
+    parado: "url('imagens/personagem.webp')",
+    direita: "url('imagens/correndo-p-direita.png')",
+    esquerda: "url('imagens/correndo-p-esquerda.png')",
+    pulando: "url('imagens/pulando.png')"
+};
+
+// 2. ELEMENTOS HTML
 const elementoTempo = document.getElementById('tempo');
 const elementoVidas = document.getElementById('qtd-vidas');
 const personagem = document.querySelector('.personagem');
 const obstaculo = document.querySelector('.obstaculo');
-const itemVida = document.querySelector('.item-vida') || document.getElementById('vida1');
+const itemVida = document.getElementById('vida1');
+const telaGameOver = document.getElementById('game-over-screen');
+const telaVitoria = document.getElementById('vitoria-screen');
 
+// 3. ESTADO DO JOGO
+let jogoAtivo = true;
+let tempo = DURACAO_JOGO;
+let vidas = VIDAS_INICIAIS;
+let segundosDesdePerdaVida = 0;
 
-// =========================================================================
-// 3. MECÂNICAS CENTRAIS (TEMPO E VIDA)
-// =========================================================================
+let posicaoX = POSICAO_INICIAL_X;
+let posicaoY = ALTURA_SOLO;
+let velocidadeY = 0;
+let noChao = true;
+let spriteAtual = '';
+const teclasPressionadas = {};
 
-// Função responsável por adicionar ou remover vidas
+let posicaoObstaculoX = 0;
+let direcaoObstaculo = 1;
+let ladoAtualItem = 'esquerda';
+
+// 4. TEMPO E VIDAS
 function alterarVidas(quantidade) {
-    vidas += quantidade;
+    vidas = Math.max(0, Math.min(VIDAS_INICIAIS, vidas + quantidade));
+    elementoVidas.textContent = vidas;
 
-    // Limites de vida
-    if (vidas > maxVidas) vidas = maxVidas;
-    if (vidas < 0) vidas = 0;
-
-    if (elementoVidas) {
-        elementoVidas.textContent = vidas;
-    }
-
-    if (vidas <= 0) {
-        executarGameOver("Suas vidas acabaram!");
+    if (vidas === 0) {
+        executarGameOver('Suas vidas acabaram!');
     }
 }
 
-// Loop Principal de Tempo (roda a cada 1 segundo)
-const temporizador = setInterval(() => {
+function atualizarTempo() {
     if (!jogoAtivo) return;
 
-    tempo--;
-    if (elementoTempo) {
-        elementoTempo.textContent = tempo;
-    }
+    tempo = Math.max(0, tempo - 1);
+    elementoTempo.textContent = tempo;
 
-    // Regra: Perde 1 vida a cada 2 segundos
-    contadorSegundosDrenagem++;
-    if (contadorSegundosDrenagem >= 2) {
-        alterarVidas(-1);
-        contadorSegundosDrenagem = 0;
-    }
-
-    // Condição de Vitória
-    if (tempo <= 0) {
-        tempo = 0;
+    // A vitória tem prioridade quando o tempo chega a zero.
+    if (tempo === 0) {
         executarVitoria();
+        return;
     }
-}, 1000);
 
+    segundosDesdePerdaVida++;
+    if (segundosDesdePerdaVida >= INTERVALO_PERDA_VIDA) {
+        segundosDesdePerdaVida = 0;
+        alterarVidas(-1);
+    }
+}
 
-// =========================================================================
-// 4. LÓGICA DO PERSONAGEM (CONTROLES, FÍSICA E SPRITES)
-// =========================================================================
-
-// Captura de Teclas
+// 5. CONTROLES E MOVIMENTAÇÃO DO PERSONAGEM
 document.addEventListener('keydown', (event) => {
+    if (!jogoAtivo) return;
+
+    if (event.key.startsWith('Arrow')) {
+        event.preventDefault();
+    }
+
     teclasPressionadas[event.key] = true;
 
-    if (event.key === 'ArrowUp' && noChao && jogoAtivo) {
-        velocidadeY = 11; // Impulso do pulo
+    if (event.key === 'ArrowUp' && noChao) {
+        velocidadeY = FORCA_PULO;
         noChao = false;
     }
 });
@@ -99,225 +100,178 @@ document.addEventListener('keyup', (event) => {
     teclasPressionadas[event.key] = false;
 });
 
-// Variável para memorizar qual imagem está ativa no momento (evita reprocessamento desnecessário)
-let spriteAtual = "";
+// Evita que o personagem continue andando ao perder o foco da janela.
+window.addEventListener('blur', () => {
+    teclasPressionadas.ArrowLeft = false;
+    teclasPressionadas.ArrowRight = false;
+    teclasPressionadas.ArrowUp = false;
+});
 
-// Loop de Movimentação do Personagem (~60 FPS)
-const loopPersonagem = setInterval(() => {
+function atualizarPersonagem() {
     if (!jogoAtivo) return;
 
-    const limiteDireito = window.innerWidth - 100;
+    const tempoDecorrido = DURACAO_JOGO - tempo;
+    const velocidade = VELOCIDADE_INICIAL_PERSONAGEM +
+        tempoDecorrido * AUMENTO_VELOCIDADE_PERSONAGEM;
+    const limiteDireito = Math.max(0, window.innerWidth - personagem.offsetWidth);
+    let novoSprite = SPRITES.parado;
 
-    // VELOCIDADE DO PERSONAGEM
-    const tempoDecorrido = 60 - tempo;
-    const velocidadePersonagem = 4 + (tempoDecorrido * 0.28);
-
-    // Variável para definir qual imagem deve aparecer neste frame
-    let novoSprite = spriteAtual;
-
-    // Movimento Horizontal e Definição da Imagem de Corrida
-    if (teclasPressionadas['ArrowRight']) {
-        if (posicaoX < limiteDireito) {
-            posicaoX += velocidadePersonagem;
-        }
-        novoSprite = "url('imagens/correndo-p-direita.png')";
-    } else if (teclasPressionadas['ArrowLeft']) {
-        if (posicaoX > 0) {
-            posicaoX -= velocidadePersonagem;
-        }
-        novoSprite = "url('imagens/correndo-p-esquerda.png')";
-    } else {
-        // Se não estiver a andar para nenhum lado, fica com a imagem padrão/parado
-        novoSprite = "url('imagens/personagem.webp')";
+    if (teclasPressionadas.ArrowRight) {
+        posicaoX += velocidade;
+        novoSprite = SPRITES.direita;
+    } else if (teclasPressionadas.ArrowLeft) {
+        posicaoX -= velocidade;
+        novoSprite = SPRITES.esquerda;
     }
 
-    // Aplicação da Gravidade e Pulo (O pulo tem prioridade visual sobre a corrida)
+    posicaoX = Math.max(0, Math.min(limiteDireito, posicaoX));
+
     if (!noChao) {
-        posicaoY += velocidadeY;    
-        velocidadeY -= gravidade;   
+        posicaoY += velocidadeY;
+        velocidadeY -= GRAVIDADE;
+        novoSprite = SPRITES.pulando;
 
-        // No ar, exibe a imagem de pulo
-        novoSprite = "url('imagens/pulando.png')";
-
-        // Checagem se tocou no chão
-        if (posicaoY <= alturaSolo) {
-            posicaoY = alturaSolo;
+        if (posicaoY <= ALTURA_SOLO) {
+            posicaoY = ALTURA_SOLO;
             velocidadeY = 0;
             noChao = true;
         }
     }
 
-    // Só altera a imagem no DOM se o estado mudou (otimização de desempenho)
+    // A imagem só é alterada quando o sprite muda.
     if (spriteAtual !== novoSprite) {
         spriteAtual = novoSprite;
         personagem.style.backgroundImage = novoSprite;
     }
 
-    // Renderização visual da posição
     personagem.style.left = `${posicaoX}px`;
     personagem.style.bottom = `${posicaoY}px`;
-}, 1000 / 60);
+}
 
+// 6. COLISÕES E OBSTÁCULO
+function obterAreaColisao(elemento, esquerda, direita, topo, base) {
+    const rect = elemento.getBoundingClientRect();
 
-// =========================================================================
-// 5. LÓGICA DO OBSTÁCULO (BOLA) E COLISÕES
-// =========================================================================
+    return {
+        left: rect.left + esquerda,
+        right: rect.right - direita,
+        top: rect.top + topo,
+        bottom: rect.bottom - base
+    };
+}
 
-const loopObstaculo = setInterval(() => {
-    if (!jogoAtivo) return;
-
-    // VELOCIDADE DA OBSTÁCULO
-    const tempoDecorrido = 60 - tempo;
-    const velocidadeObstaculo = 6 + (tempoDecorrido * 0.5);
-
-    posicaoObstaculoX += velocidadeObstaculo * direcaoObstaculo;
-
-    // Bate e volta nas bordas
-    const limiteDireito = window.innerWidth - 40;
-    if (posicaoObstaculoX >= limiteDireito) {
-        direcaoObstaculo = -1; 
-    } else if (posicaoObstaculoX <= 0) {
-        direcaoObstaculo = 1;  
-    }
-
-    obstaculo.style.left = `${posicaoObstaculoX}px`;
-
-    // A cada passo do obstáculo, checa colisão com o jogador
-    checarColisaoObstaculo();
-}, 20);
+function verificarColisao(a, b) {
+    return (
+        a.left <= b.right &&
+        a.right >= b.left &&
+        a.top <= b.bottom &&
+        a.bottom >= b.top
+    );
+}
 
 function checarColisaoObstaculo() {
-    const rectPersonagem = personagem.getBoundingClientRect();
-    const rectObstaculo = obstaculo.getBoundingClientRect();
+    // As margens compensam as partes transparentes do sprite.
+    const areaPersonagem = obterAreaColisao(personagem, 38, 38, 20, 25);
+    const areaObstaculo = obterAreaColisao(obstaculo, 4, 4, 4, 4);
 
-    const margemEsquerda = 38; 
-    const margemDireita = 38;  
-    const margemTopo = 20;     
-    const margemBase = 25;     
-    const margemObstaculo = 4;
-
-    const corpoPersonagem = {
-        left: rectPersonagem.left + margemEsquerda,
-        right: rectPersonagem.right - margemDireita,
-        top: rectPersonagem.top + margemTopo,
-        bottom: rectPersonagem.bottom - margemBase
-    };
-
-    const corpoObstaculo = {
-        left: rectObstaculo.left + margemObstaculo,
-        right: rectObstaculo.right - margemObstaculo,
-        top: rectObstaculo.top + margemObstaculo,
-        bottom: rectObstaculo.bottom - margemObstaculo
-    };
-
-    const colidiu = !(
-        corpoPersonagem.right < corpoObstaculo.left ||
-        corpoPersonagem.left > corpoObstaculo.right ||
-        corpoPersonagem.bottom < corpoObstaculo.top ||
-        corpoPersonagem.top > corpoObstaculo.bottom
-    );
-
-    if (colidiu) {
-        executarGameOver("Colisão com o obstáculo!");
+    if (verificarColisao(areaPersonagem, areaObstaculo)) {
+        executarGameOver('Colisão com o obstáculo!');
     }
 }
 
+function atualizarObstaculo() {
+    if (!jogoAtivo) return;
 
-// =========================================================================
-// 6. LÓGICA DO ITEM DE VIDA (COLETÁVEIS)
-// =========================================================================
+    const tempoDecorrido = DURACAO_JOGO - tempo;
+    const velocidade = VELOCIDADE_INICIAL_OBSTACULO +
+        tempoDecorrido * AUMENTO_VELOCIDADE_OBSTACULO;
+    const limiteDireito = Math.max(0, window.innerWidth - obstaculo.offsetWidth);
 
+    posicaoObstaculoX += velocidade * direcaoObstaculo;
+
+    if (posicaoObstaculoX >= limiteDireito) {
+        posicaoObstaculoX = limiteDireito;
+        direcaoObstaculo = -1;
+    } else if (posicaoObstaculoX <= 0) {
+        posicaoObstaculoX = 0;
+        direcaoObstaculo = 1;
+    }
+
+    obstaculo.style.left = `${posicaoObstaculoX}px`;
+    checarColisaoObstaculo();
+}
+
+// 7. ITENS DE VIDA
 function gerarAlturaAleatoria(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function spawnarProximaVida() {
-    ladoAtualItem = (ladoAtualItem === 'esquerda') ? 'direita' : 'esquerda';
-    posicaoItemX = (ladoAtualItem === 'esquerda') ? 80 : window.innerWidth - 120;
-    posicaoItemY = gerarAlturaAleatoria(84, 190);
-
-    if (itemVida) {
-        itemVida.style.left = `${posicaoItemX}px`;
-        itemVida.style.bottom = `${posicaoItemY}px`;
-        itemVida.style.display = 'block';
-    }
-    itemAtivo = true;
-}
-
-function iniciarItemVida() {
-    if (!itemVida) return;
-    posicaoItemY = gerarAlturaAleatoria(84, 190);
-    itemVida.style.left = `${posicaoItemX}px`;
-    itemVida.style.bottom = `${posicaoItemY}px`;
+function posicionarItemVida() {
     itemVida.style.display = 'block';
+
+    const posicaoDesejada = ladoAtualItem === 'esquerda'
+        ? POSICAO_ESQUERDA_ITEM
+        : window.innerWidth - DISTANCIA_DIREITA_ITEM;
+    const limiteDireito = Math.max(0, window.innerWidth - itemVida.offsetWidth);
+    const posicaoXItem = Math.max(0, Math.min(limiteDireito, posicaoDesejada));
+    const posicaoYItem = gerarAlturaAleatoria(ALTURA_MINIMA_ITEM, ALTURA_MAXIMA_ITEM);
+
+    itemVida.style.left = `${posicaoXItem}px`;
+    itemVida.style.bottom = `${posicaoYItem}px`;
 }
 
-iniciarItemVida();
+function checarColetaVida() {
+    if (!jogoAtivo) return;
 
-const loopChecarVida = setInterval(() => {
-    if (!jogoAtivo || !itemAtivo || !itemVida) return;
+    const areaPersonagem = obterAreaColisao(personagem, 35, 35, 15, 15);
+    const areaItem = itemVida.getBoundingClientRect();
 
-    const rectPersonagem = personagem.getBoundingClientRect();
-    const rectItem = itemVida.getBoundingClientRect();
-
-    const margemHorizontal = 35;
-    const margemVertical = 15;
-
-    const corpoPersonagem = {
-        left: rectPersonagem.left + margemHorizontal,
-        right: rectPersonagem.right - margemHorizontal,
-        top: rectPersonagem.top + margemVertical,
-        bottom: rectPersonagem.bottom - margemVertical
-    };
-
-    const coletou = !(
-        corpoPersonagem.right < rectItem.left ||
-        corpoPersonagem.left > rectItem.right ||
-        corpoPersonagem.bottom < rectItem.top ||
-        corpoPersonagem.top > rectItem.bottom
-    );
-
-    if (coletou) {
-        alterarVidas(1); 
-        itemAtivo = false;
-        itemVida.style.display = 'none'; 
-        spawnarProximaVida();
+    if (verificarColisao(areaPersonagem, areaItem)) {
+        alterarVidas(1);
+        ladoAtualItem = ladoAtualItem === 'esquerda' ? 'direita' : 'esquerda';
+        posicionarItemVida();
     }
-}, 20);
+}
 
+// 8. ENCERRAMENTO E REINÍCIO
+function finalizarJogo(tela, mensagem) {
+    if (!jogoAtivo) return;
 
-// =========================================================================
-// 7. GESTÃO DE ESTADOS FINAIS (GAME OVER E VITÓRIA)
-// =========================================================================
-
-function pararTodosOsLoops() {
     jogoAtivo = false;
     clearInterval(temporizador);
+    clearInterval(loopPersonagem);
     clearInterval(loopObstaculo);
     clearInterval(loopChecarVida);
-    clearInterval(loopPersonagem);
+
+    tela.style.display = 'flex';
+    console.log(mensagem);
 }
 
 function executarGameOver(motivo) {
-    pararTodosOsLoops();
-
-    const telaGameOver = document.getElementById('game-over-screen');
-    if (telaGameOver) {
-        telaGameOver.style.display = 'flex';
-    }
-    console.log(`GAME OVER! Motivo: ${motivo}`);
+    finalizarJogo(telaGameOver, `GAME OVER! Motivo: ${motivo}`);
 }
 
 function executarVitoria() {
-    pararTodosOsLoops();
-
-    const telaVitoria = document.getElementById('vitoria-screen');
-    if (telaVitoria) {
-        telaVitoria.style.display = 'flex';
-    }
-    console.log("PARABÉNS! Você sobreviveu aos 60 segundos!");
+    finalizarJogo(telaVitoria, 'PARABÉNS! Você sobreviveu aos 60 segundos!');
 }
 
 function reiniciarJogo() {
     window.location.reload();
 }
+
+// 9. INICIALIZAÇÃO DO JOGO
+posicaoX = Math.max(0, Math.min(
+    posicaoX,
+    window.innerWidth - personagem.offsetWidth
+));
+personagem.style.left = `${posicaoX}px`;
+posicionarItemVida();
+
+document.querySelectorAll('.btn-reiniciar').forEach((botao) => {
+    botao.addEventListener('click', reiniciarJogo);
+});
+
+const temporizador = setInterval(atualizarTempo, 1000);
+const loopPersonagem = setInterval(atualizarPersonagem, 1000 / 60);
+const loopObstaculo = setInterval(atualizarObstaculo, 20);
+const loopChecarVida = setInterval(checarColetaVida, 20);
