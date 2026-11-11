@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <locale.h>
+#include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
@@ -401,98 +402,97 @@ int main() {
 	// c) idade média das mulheres; 
 	// d) percentagem de habitantes de cabelos louros e olhos azuis.
 	
-	/*
+	
 	struct Pessoa {
-	char sexo;
-	char corOlhos;
-	char corCabelos;
-	int idade;
-};
+		char sexo;
+		char corOlhos;
+		char corCabelos;
+		int idade;
+	};
 
-typedef struct Pessoa Pessoa;
+	typedef struct Pessoa Pessoa;
 
-int main(void) {
-	setlocale(LC_ALL, "Portuguese");
-	
-	Pessoa *pessoas;
-	int qtde = 0, indiceIdadeNovo = -1, qtdeMulheres = 0;
-	float contadorLouroAzul = 0, somaIdade = 0, mediaMulheres = 0;
-	
-	printf("Qtde de pessoas: ");
-	scanf("%d", &qtde);
-	
-	getchar();
-
-	pessoas = (Pessoa *) malloc(qtde * sizeof(Pessoa));
-	
-	if(pessoas == NULL){
-		printf("\n[ERRO] ALOCAÇÃO FALHOU!");
-		return 1;
-	}
-	
-	for(int i = 0; i < qtde; i++){
-		printf("\n=== PESSOA %d ===\n", i+1);
+	int main(void) {
+		setlocale(LC_ALL, "Portuguese");
 		
-		printf("Sexo [m/f]: ");
-		scanf(" %c", &pessoas[i].sexo);
+		Pessoa *pessoas;
+		int qtde = 0, indiceIdadeNovo = -1, qtdeMulheres = 0;
+		float contadorLouroAzul = 0, somaIdade = 0, mediaMulheres = 0;
 		
-		printf("Cor dos Olhos [A]zul, [V]erde, [C]astanho: ");
-		scanf(" %c", &pessoas[i].corOlhos);
+		printf("Qtde de pessoas: ");
+		scanf("%d", &qtde);
 		
-		printf("Cor dos cabelos [L]oiro, [C]astanho, [P]reto, [R]uivo: ");
-		scanf(" %c", &pessoas[i].corCabelos);
+		getchar();
+	
+		pessoas = (Pessoa *) malloc(qtde * sizeof(Pessoa));
 		
-		if(pessoas[i].corOlhos == 'a' && pessoas[i].corCabelos == 'l'){
-			contadorLouroAzul++;
+		if(pessoas == NULL){
+			printf("\n[ERRO] ALOCAÇÃO FALHOU!");
+			return 1;
 		}
 		
-		printf("Idade: ");
-		scanf("%d", &pessoas[i].idade);
-		printf("\n===========================================================================\n");
-		
-		if(pessoas[i].sexo == 'm'){
-			if(indiceIdadeNovo == -1 || pessoas[i].idade < pessoas[indiceIdadeNovo].idade){
-				indiceIdadeNovo = i;
+		for(int i = 0; i < qtde; i++){
+			printf("\n=== PESSOA %d ===\n", i+1);
+			
+			printf("Sexo [m/f]: ");
+			scanf(" %c", &pessoas[i].sexo);
+			
+			printf("Cor dos Olhos [A]zul, [V]erde, [C]astanho: ");
+			scanf(" %c", &pessoas[i].corOlhos);
+			
+			printf("Cor dos cabelos [L]oiro, [C]astanho, [P]reto, [R]uivo: ");
+			scanf(" %c", &pessoas[i].corCabelos);
+			
+			if(pessoas[i].corOlhos == 'a' && pessoas[i].corCabelos == 'l'){
+				contadorLouroAzul++;
+			}
+			
+			printf("Idade: ");
+			scanf("%d", &pessoas[i].idade);
+			printf("\n===========================================================================\n");
+			
+			if(pessoas[i].sexo == 'm'){
+				if(indiceIdadeNovo == -1 || pessoas[i].idade < pessoas[indiceIdadeNovo].idade){
+					indiceIdadeNovo = i;
+				}
+			}
+			
+			if(pessoas[i].sexo == 'f'){
+				qtdeMulheres++;
+				somaIdade += pessoas[i].idade;
 			}
 		}
 		
-		if(pessoas[i].sexo == 'f'){
-			qtdeMulheres++;
-			somaIdade += pessoas[i].idade;
+		//homem mais novo
+		if(indiceIdadeNovo == -1){
+			printf("\na) Nenhum homem cadastrado.\n");
+		}else {
+			printf("\na) O homem mais novo tem %d anos\n", pessoas[indiceIdadeNovo].idade);
 		}
-	}
+		
+		// número de pessoas entrevistadas
+		printf("\nb) Número de pessoas entrevistadas: %d\n", qtde);
+		
+		// idade média das mulheres
+		if(qtdeMulheres == 0){
+			printf("\nc) Nenhuma mulher cadastrada.\n");
+		}else{
+			mediaMulheres = somaIdade / qtdeMulheres;
+			printf("\nc) Idade média das mulheres: %.1f\n", mediaMulheres);
+		}
+		
+		// percentagem de habitantes de cabelos louros e olhos azuis
+		if(contadorLouroAzul == 0){
+			printf("\nd) Percentagem de habitantes de cabelos louros e olhos azuis: 0%%\n");
+		}else {
+			contadorLouroAzul = (contadorLouroAzul / qtde) * 100;
+			printf("\nd) Percentagem de habitantes de cabelos louros e olhos azuis: %.1f%%", contadorLouroAzul);
+		}
+		
+		printf("\n===========================================================================\n");
 	
-	//homem mais novo
-	if(indiceIdadeNovo == -1){
-		printf("\na) Nenhum homem cadastrado.\n");
-	}else {
-		printf("\na) O homem mais novo tem %d anos\n", pessoas[indiceIdadeNovo].idade);
-	}
-	
-	// número de pessoas entrevistadas
-	printf("\nb) Número de pessoas entrevistadas: %d\n", qtde);
-	
-	// idade média das mulheres
-	if(qtdeMulheres == 0){
-		printf("\nc) Nenhuma mulher cadastrada.\n");
-	}else{
-		mediaMulheres = somaIdade / qtdeMulheres;
-		printf("\nc) Idade média das mulheres: %.1f\n", mediaMulheres);
-	}
-	
-	// percentagem de habitantes de cabelos louros e olhos azuis
-	if(contadorLouroAzul == 0){
-		printf("\nd) Percentagem de habitantes de cabelos louros e olhos azuis: 0%%\n");
-	}else {
-		contadorLouroAzul = (contadorLouroAzul / qtde) * 100;
-		printf("\nd) Percentagem de habitantes de cabelos louros e olhos azuis: %.1f%%", contadorLouroAzul);
-	}
-	
-	printf("\n===========================================================================\n");
-
-	free(pessoas);
-	pessoas = NULL;
-	*/
+		free(pessoas);
+		pessoas = NULL;
 	
 	return 0;
 }
