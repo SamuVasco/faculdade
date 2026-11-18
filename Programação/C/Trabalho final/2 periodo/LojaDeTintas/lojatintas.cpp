@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <locale.h>
 #include <string.h>
 #include <stdlib.h>
-
+// Algumas observacoes
+// Usei o while para repetir as perguntas caso o usuario digitasse algo invalido, para que nao precisasse digitar tudo de novo se ocorresse algum erro
+// Ao inves de fazer gambiarra retornando um numero inteiro com a funcao VerTodasCompras, pesquisei e descobri exit(0) que encerra o programa com apenas uma linha
+// De resto, tentei comentar o codigo ao maximo pra tentar deixar claro
 struct Cliente{
 	char nome[30];
 	char sexo;
@@ -20,23 +22,21 @@ struct Compra {
 
 typedef struct Compra compra;
 
-
 void CadastrarNovasCompras();
 void PesquisarCompra();
 void VerTodasCompras();
 int ContarCompras();
 
 int main() {
-	setlocale(LC_ALL, "Portuguese");
 	
 	int quantidadeCompras = ContarCompras();
 	compra *comprasSalvas = NULL;
 	FILE *arquivo;
 	
-	// Verifica se existem compras salvas
+	// Confere se ja tem compras salvas
 	if(quantidadeCompras > 0){
 	
-	    // Aloca memoria para as compras existentes
+	    // Reserva espaco pra compras que ja estavam no arquivo
 	    comprasSalvas = (compra *) malloc(quantidadeCompras * sizeof(compra));
 	
 	    if(comprasSalvas == NULL){
@@ -44,7 +44,6 @@ int main() {
 	        return 1;
 	    }
 	
-	    // Abre o arquivo para leitura
 	    arquivo = fopen("tintas.txt", "r");
 	
 	    if(arquivo == NULL){
@@ -53,7 +52,7 @@ int main() {
 	        return 1;
 	    }
 	
-	    // Carrega as compras para o vetor
+	    // Coloca as compras no vetor
 	    for(int i = 0; i < quantidadeCompras; i++){
 	
 	        fscanf(arquivo, " %29[^/]/%c/%d/%d/%d/%f",
@@ -73,41 +72,41 @@ int main() {
 		}
 	}
 	
-	int opcao; // opção que o usuário digitar
+	int opcao;
 	
 	
 	printf("===== BEM VINDO A TINTAS STORE =====\n");
 	
-	// Menu principal
+	// Menu da loja
 	
 	do {
-		printf("\n========================= MENU DE OPÇÕES ==================================\n");
+		printf("\n========================= MENU DE OPCOES ==================================\n");
 		printf("[ 1 ] Cadastrar novas compras \n");
-		printf("[ 2 ] Ver informações de uma compra específica, baseado no nome do cliente \n");
-		printf("[ 3 ] Ver informações de todas as compras \n");
+		printf("[ 2 ] Ver informacoes de uma compra especifica, baseado no nome do cliente \n");
+		printf("[ 3 ] Ver informacoes de todas as compras \n");
 		printf("[ 0 ] Encerrar o programa \n");
-		printf("Digite a opção: ");
+		printf("Digite a opcao: ");
 		scanf("%d", &opcao);	
 		
 		if(opcao < 0 || opcao > 3){
 			printf("\n=============================================================\n");
-			printf("\n[ERRO] Opção inválida. Escolhe entre uma das opções do MENU. \n");
+			printf("\n[ERRO] Opcao invalida. Escolhe entre uma das opcoes do MENU. \n");
 			printf("\n=============================================================\n");
 		}
 		
 		if(opcao == 1){
 		    CadastrarNovasCompras();
 		
-		    // Libera o vetor antigo
+		    // Libera o vetor anterior
 		    free(comprasSalvas);
 		    comprasSalvas = NULL;
 		
-		    // Conta novamente as compras do arquivo
+		    // Confere quantas compras tem
 		    quantidadeCompras = ContarCompras();
 		
 		    if(quantidadeCompras > 0){
 		
-		        // Aloca memoria para a nova quantidade
+		        // Reserva espaco pro total atualizado
 		        comprasSalvas = (compra *) malloc(quantidadeCompras * sizeof(compra));
 		
 		        if(comprasSalvas == NULL){
@@ -115,7 +114,7 @@ int main() {
 		            return 1;
 		        }
 		
-		        // Abre o arquivo para atualizar o vetor
+		        // Abre o arquivo de novo pra atualizar o vetor
 		        arquivo = fopen("tintas.txt", "r");
 		
 		        if(arquivo == NULL){
@@ -161,10 +160,10 @@ void CadastrarNovasCompras(){
 	printf("\nDigite a quantidade de novas compras: ");
 	scanf("%d", &qtde);
 	
-	// Impedir o cadastro de valores negativos e informar este erro. 
+	// Nao deixa cadastrar quantidade zero ou negativa
 	while(qtde <= 0){
 		printf("\n=============================================================\n");
-		printf("\n[ERRO] Digite uma quantidade válida e tente novamente.\n");
+		printf("\n[ERRO] Digite uma quantidade valida e tente novamente.\n");
 		printf("\n=============================================================\n");
 		printf("\nDigite a quantidade de novas compras: ");
 		scanf("%d", &qtde);
@@ -176,7 +175,7 @@ void CadastrarNovasCompras(){
 	compras = (compra *) malloc(qtde * sizeof(compra));
 	
 	if(compras == NULL){
-		printf("\n[ERRO] Alocação de memória falhou!\n");
+		printf("\n[ERRO] Alocacao de memoria falhou!\n");
 		return;
 	}
 	
@@ -188,14 +187,14 @@ void CadastrarNovasCompras(){
 		
 		printf("\n--- DADOS DO CLIENTE ---\n");
 		
-		// Lê o nome do cliente
+		// Pega o nome do cliente
 		printf("Nome: ");
 		fgets(compras[i].cliente.nome, sizeof(compras[i].cliente.nome), stdin);
 		
 		compras[i].cliente.nome[strcspn(compras[i].cliente.nome, "\n")] = '\0';
 		
 		
-		// Impedir o cadastro se o nome do cliente possuir menos de 4 letras e informar este erro.
+		// Se o nome tiver menos de 4 letras, pede de novo
 		while(strlen(compras[i].cliente.nome) < 4){
 			printf("\n\n[ERRO] O nome do cliente deve possuir PELO MENOS 4 LETRAS! Digite o nome novamente.\n\n");
 			
@@ -204,24 +203,24 @@ void CadastrarNovasCompras(){
 			compras[i].cliente.nome[strcspn(compras[i].cliente.nome, "\n")] = '\0';
 		}
 		
-		// Lê o sexo do cliente
-		printf("\nDigite o sexo em letra minúscula [m/f/n]: ");
+		// Pega o sexo do cliente
+		printf("\nDigite o sexo em letra minuscula [m/f/n]: ");
 		scanf(" %c", &compras[i].cliente.sexo);
 		
-		// Impedir o cadastro quando o sexo do cliente for inválido (diferente de m, f ou n) e informar este erro. 
+		// So aceita m, f ou n
 		while(compras[i].cliente.sexo != 'm' && compras[i].cliente.sexo != 'f' && compras[i].cliente.sexo != 'n'){
-			printf("\n\n[ERRO] Digite o sexo válido e tente novamente.\n\n");
+			printf("\n\n[ERRO] Digite o sexo valido e tente novamente.\n\n");
 			
-			printf("Digite o sexo em letra minúscula [m/f/n]: ");
+			printf("Digite o sexo em letra minuscula [m/f/n]: ");
 			scanf(" %c", &compras[i].cliente.sexo);
 		}
 		
-		// Lê a idade do cliente
+		// Pega a idade do cliente
 		printf("\nDigite a idade: ");
 		scanf("%d", &compras[i].cliente.idade);
 		
 		while(compras[i].cliente.idade <= 0){
-			printf("\n\n[ERRO] Digite uma idade válida e tente novamente.\n\n");
+			printf("\n\n[ERRO] Digite uma idade valida e tente novamente.\n\n");
 			
 			printf("Digite a idade: ");
 			scanf("%d", &compras[i].cliente.idade);
@@ -229,36 +228,36 @@ void CadastrarNovasCompras(){
 		
 		printf("\n--- DADOS DA COMPRA ---\n\n");
 		
-		// Lê o número de itens da compra
-		printf("Número de itens: ");
+		// Pega a quantidade de itens
+		printf("Numero de itens: ");
 		scanf("%d", &compras[i].itens);
 		
 		while(compras[i].itens <= 0){
-			printf("\n\n[ERRO] Digite uma quantidade de itens válida e tente novamente.\n\n");
+			printf("\n\n[ERRO] Digite uma quantidade de itens valida e tente novamente.\n\n");
 			
-			printf("Número de itens: ");
+			printf("Numero de itens: ");
 			scanf("%d", &compras[i].itens);
 		}
 		
-		// Lê a franquia
+		// Pega a franquia da compra
 		printf("\nDigite franquia 1,2 ou 3: ");
 		scanf("%d", &compras[i].franquia);
 		
 		while(compras[i].franquia <= 0 || compras[i].franquia > 3){
-			printf("\n\n[ERRO] Digite um número de franquia válida e tente novamente.\n\n");
-			printf("\nAs opções são [1], [2] ou [3]\n\n");
+			printf("\n\n[ERRO] Digite um numero de franquia valida e tente novamente.\n\n");
+			printf("\nAs opcoes sao [1], [2] ou [3]\n\n");
 			
 			printf("Digite franquia 1,2 ou 3: ");
 			scanf("%d", &compras[i].franquia);
 		}
 		
-		// Lê o valor total da compra
+		// Pega o valor final da compra
 		printf("Valor da compra: R$");
 		scanf("%f", &compras[i].total);
 		
-		// Deixei 0 pq pode ser que alguma compra saia de graça pra algum cliente
+		// Deixei 0 pq alguma compra pode ter saido de graca pra algum cliente
 		while(compras[i].total < 0){
-			printf("\n\n[ERRO] O valor da compra NÃO pode ser um valor negativo! Digite um valor válido e tente novamente.\n\n");
+			printf("\n\n[ERRO] O valor da compra NAO pode ser um valor negativo! Digite um valor valido e tente novamente.\n\n");
 			printf("Valor da compra: R$");
 			scanf("%f", &compras[i].total);
 		}
@@ -268,13 +267,13 @@ void CadastrarNovasCompras(){
 		printf("\n\n===== DADOS DA COMPRA %d REGISTRADOS COM SUCESSO! =====\n\n", i+1);	
 	}
 	
-	// Após o término de todo o cadastro salve as informações em um bloco de notas nomeado de “tintas.txt”.
+	// Depois dos cadastros, salva tudo no tintas.txt
 	FILE *arquivo;
 	
 	arquivo = fopen("tintas.txt", "a");
 	
 	if(arquivo == NULL){
-		printf("\n[ERRO] Não foi possível abrir o arquivo!\n");
+		printf("\n[ERRO] Nao foi possivel abrir o arquivo!\n");
 		free(compras);
 		return;
 	}
@@ -302,30 +301,30 @@ void CadastrarNovasCompras(){
 	        scanf("%d", &escolha);
 	
 	        if(escolha < 1 || escolha > 2){
-	            printf("\n\n[ERRO] Opção invalida!\n\n");
+	            printf("\n\n[ERRO] Opcao invalida!\n\n");
 	        }
 
     	}while(escolha < 1 || escolha > 2);
 
-	}while(escolha == 1); // Repete TODO o cadastro se escolher 1
+	}while(escolha == 1); // Se escolher 1, cadastra mais compras
 }
 
 void PesquisarCompra(){
 	
 	char nomeCliente[30];
-	compra compraLida; // armazena os dados de uma compra lida do arquivo
+	compra compraLida; // guarda uma compra por vez enquanto le o arquivo
 	FILE *arquivo;
 	int escolha;
 	
 	do {
 		
-		int encontradas = 0; // conta quantas compras pertence ao cliente pesquisado
-		float soma = 0; // acumula os valores das compras pra calcular a média
+		int encontradas = 0; // conta as compras encontradas desse cliente
+		float soma = 0; // soma os valores pra calcular a media
 	
 		getchar();
 		
 		printf("\n=============================================================\n");
-		printf("\n[2] Para ver informações de uma compra específica, digite o nome do cliente\n");
+		printf("\n[2] Para ver informacoes de uma compra especifica, digite o nome do cliente\n");
 		printf("\nDigite nome do cliente: ");
 		fgets(nomeCliente, sizeof(nomeCliente), stdin);
 		
@@ -334,7 +333,7 @@ void PesquisarCompra(){
 		arquivo = fopen("tintas.txt", "r");
 		
 		if(arquivo == NULL){
-			printf("\n[ERRO] Não foi possível abrir o arquivo!\n");
+			printf("\n[ERRO] Nao foi possivel abrir o arquivo!\n");
 			return;
 		}else{
 			printf("\n\n===== COMPRAS FEITAS PELO(A) CLIENTE: %s ===== \n", nomeCliente);
@@ -361,7 +360,7 @@ void PesquisarCompra(){
 		
 		fclose(arquivo);
 		
-		// Para não dividir por 0
+		// Evita fazer a divisao por zero
 		if(encontradas > 0){
 	    	float media = soma / encontradas;
 	
@@ -390,7 +389,7 @@ void PesquisarCompra(){
 void VerTodasCompras(){
 	
 	printf("\n=============================================================\n");
-	printf("\n[3] Exibindo informações de todas as compras\n");
+	printf("\n[3] Exibindo informacoes de todas as compras\n");
 
     FILE *arquivo;
     compra compraLida;
@@ -410,11 +409,11 @@ void VerTodasCompras(){
     arquivo = fopen("tintas.txt", "r");
 
     if(arquivo == NULL){
-        printf("\n[ERRO] Não foi possível abrir o arquivo!\n");
+        printf("\n[ERRO] Nao foi possivel abrir o arquivo!\n");
         return;
     }
 
-    printf("\n===== INFORMAÇÕES DE TODAS AS COMPRAS =====\n");
+    printf("\n===== INFORMACOES DE TODAS AS COMPRAS =====\n");
 
     while(fscanf(arquivo, " %29[^/]/%c/%d/%d/%d/%f",
         compraLida.cliente.nome,
@@ -424,27 +423,27 @@ void VerTodasCompras(){
         &compraLida.franquia,
         &compraLida.total) != EOF){
 
-		    // Conta compras entre R$70 e R$150 (inclusive)
+		    // Compras de 70 a 150 reais, incluindo os dois valores
 			if(compraLida.total >= 70 && compraLida.total <= 150){
 			    compras70a150++;
 			}
 		
-			// Conta compras com exatamente 2 itens
+			// Compras que tiveram 2 itens
 			if(compraLida.itens == 2){
 			    compras2Itens++;
 			}
 			
-			// Conta as compras realizadas nas franquias 1 ou 2
+			// Compras feitas nas franquias 1 ou 2
 			if(compraLida.franquia == 1 || compraLida.franquia == 2){
 			    comprasFranquias++;
 			}
 		
-			// Conta os registros de compras de clientes do sexo feminino
+			// Compras feitas por clientes do sexo feminino
 			if(compraLida.cliente.sexo == 'f'){
 			    compradoresFeminino++;
 			}
 			
-			// Soma as compras realizadas por clientes com mais de 50 anos
+			// Soma as compras de quem tem mais de 50 anos
 			if(compraLida.cliente.idade > 50){
 			    totalMaiores50 += compraLida.total;
 			}
@@ -452,28 +451,28 @@ void VerTodasCompras(){
 			// Soma o valor de todas as compras
 			totalCompras += compraLida.total;
 			
-			// Conta a quantidade total de compras
+			// Conta o total de compras
 			quantidadeCompras++;
 			
-			// Identifica o cliente com o maior nome
+			// Guarda o nome mais comprido
 			if(strlen(compraLida.cliente.nome) > strlen(nomeMaior)){
 			    strcpy(nomeMaior, compraLida.cliente.nome);
 			}
 	
-			// Identifica o cliente mais velho
+			// Guarda o nome do cliente mais velho
 			if(compraLida.cliente.idade > maiorIdade){
 			    maiorIdade = compraLida.cliente.idade;
 			    strcpy(nomeMaisVelho, compraLida.cliente.nome);
 			}
 		}
 		
-		// Exibir os dados da compra do desgraçado com o maior nome
+		// Mostra as compras de quem tem o nome mais comprido
 		if(quantidadeCompras > 0){
 
 		    printf("\n===== COMPRAS DO CLIENTE COM O MAIOR NOME =====\n");
 		    printf("Cliente: %s\n", nomeMaior);
 		
-		    rewind(arquivo); // Isso aqui volta pro inicio do arquivo
+		    rewind(arquivo); // Volta pro comeco do arquivo pra ler de novo
 		
 		    while(fscanf(arquivo, " %29[^/]/%c/%d/%d/%d/%f",
 		        compraLida.cliente.nome,
@@ -528,13 +527,13 @@ void VerTodasCompras(){
 			printf("\nValor total comprado por clientes com mais de 50 anos: R$%.2f\n", totalMaiores50);
 			printf("Valor total de todas as compras: R$%.2f\n", totalCompras);
 			
-			// Calcula a média somente se existirem compras
+			// So faz a media se tiver compras
 			if(quantidadeCompras > 0){
 			    media = totalCompras / quantidadeCompras;
 			
 			    printf("Valor medio de uma compra: R$%.2f\n", media);
 			}else{
-			    printf("Não existem compras para calcular a média.\n");
+			    printf("Nao existem compras para calcular a media.\n");
 			}
 	
 	do {
@@ -552,7 +551,7 @@ void VerTodasCompras(){
 
 	if(escolha == 2){
 	    printf("\nEncerrando o programa...\n");
-	    exit(0); // Ja que a função não retorna nada, pesquisei e descobri a função exit(0) da biblioteca stdlib que encerra o programa
+	    exit(0); // Encerra o programa inteiro, nao so essa funcao
 	}
 }
 
