@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 // Algumas observacoes
 // Usei o while para repetir as perguntas caso o usuario digitasse algo invalido, para que nao precisasse digitar tudo de novo se ocorresse algum erro
 // Ao inves de fazer gambiarra retornando um numero inteiro com a funcao VerTodasCompras, pesquisei e descobri exit(0) que encerra o programa com apenas uma linha
 // De resto, tentei comentar o codigo ao maximo pra tentar deixar claro
+
 struct Cliente{
 	char nome[30];
 	char sexo;
